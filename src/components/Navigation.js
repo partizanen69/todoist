@@ -4,10 +4,7 @@ import { Link } from 'react-router-dom';
 
 import * as routes from '../constants/routes';
 import SignOutButton from './SignOutButton'
-
-
-
-
+import AuthUserContext from './AuthUserContext';
 
 const Navigation = ({ authUser }) => 
   <Navbar>
@@ -16,8 +13,12 @@ const Navigation = ({ authUser }) =>
         Todoist
       </Navbar.Brand>
     </Navbar.Header>
-        {authUser ? <NavigationAuth /> : <NavigationNonAuth />}
-        <button onClick={() => console.log(authUser)}>Click</button>
+      <AuthUserContext.Consumer>
+        {authUser => authUser 
+          ? <NavigationAuth />
+          : <NavigationNonAuth />
+        }
+      </AuthUserContext.Consumer>
   </Navbar>
 
 const NavigationAuth = () =>

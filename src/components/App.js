@@ -10,40 +10,19 @@ import SignInPage from './SignInPage';
 import HomePage from './HomePage';
 import Account from './Account';
 import PasswordForget from './PasswordForget';
+import withAuthentication from './withAuthentication';
 
-class App extends React.Component {
-	constructor() {
-		super();
-		this.state = {
-			authUser: null
-		}
-	}
+const App = () => 
+	<Router>
+		<div>
+    		<Navigation />
+    		<Route exact path={routes.LANDING} component={LandingPage} />
+    		<Route exact path={routes.SIGN_UP} component={SignUpPage} />
+    		<Route exact path={routes.SIGN_IN} component={SignInPage} />
+    		<Route exact path={routes.HOME} component={HomePage} />
+    		<Route exact path={routes.ACCOUNT} component={Account} />
+    		<Route exact path={routes.PASSWORD_FORGET} component={PasswordForget} />
+		</div>
+	</Router>
 
-	componentDidMount() {
-		firebase.auth.onAuthStateChanged(authUser => {
-			authUser 
-			? this.setState({authUser: authUser})
-			: this.setState({authUser: null});
-		})
-	}
-
-	render() {
-    return (
-    	<Router>
-    		<div>
-	    		<Navigation authUser={this.state.authUser} />
-	    		<Route exact path={routes.LANDING} component={LandingPage} />
-	    		<Route exact path={routes.SIGN_UP} component={SignUpPage} />
-	    		<Route exact path={routes.SIGN_IN} component={SignInPage} />
-	    		<Route exact path={routes.HOME} component={HomePage} />
-	    		<Route exact path={routes.ACCOUNT} component={Account} />
-	    		<Route exact path={routes.PASSWORD_FORGET} component={PasswordForget} />
-    		</div>
-    	</Router>
-	)
-
-    
-  }
-}
-
-export default App;
+export default withAuthentication(App);
