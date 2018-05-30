@@ -18,10 +18,6 @@ const INITIAL_STATE = {
 	error: null
 }
 
-const byPropKey = (propName, value) => () => ({
-	[propName]: value
-})
-
 class SignUpForm extends React.Component {
 	constructor() {
 		super();
@@ -43,7 +39,7 @@ class SignUpForm extends React.Component {
 				history.push(routes.HOME);
 			})
 			.catch(error => {
-				this.setState(byPropKey('error', error))
+				this.setState({error: error});
 			})
 		e.preventDefault();
 		console.log('success');
@@ -68,23 +64,23 @@ class SignUpForm extends React.Component {
 			<form onSubmit={this.onSubmit}>
 				<input 
 					value={username}
-		          	onChange={e => this.setState(byPropKey('username', e.target.value))}
+		          	onChange={e => this.setState({username: e.target.value})}
 					placeholder="Full Name"
 				/>
 				<input 
 					value={email}
-		          	onChange={e => this.setState(byPropKey('email', e.target.value))}
+		          	onChange={e => this.setState({email: e.target.value})}
 					placeholder="Email Address"
 				/>
 				<input 
 					value={passwordOne}
-		          	onChange={e => this.setState(byPropKey('passwordOne', e.target.value))}
+		          	onChange={e => this.setState({passwordOne: e.target.value})}
 		          	type="password"
 					placeholder="Password"
 				/>
 				<input 
 					value={passwordTwo}
-		          	onChange={e => this.setState(byPropKey('passwordTwo', e.target.value))}
+		          	onChange={e => this.setState({passwordTwo: e.target.value})}
 		          	type="password"
 					placeholder="Confirm Password"
 				/>
