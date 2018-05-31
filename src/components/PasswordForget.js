@@ -1,11 +1,64 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
-class PasswordForget extends React.Component {
-	render() {
-		return <div>
-			PasswordForget
-		</div>
-	}
+import { auth } from '../firebase';
+
+const PasswordForgetPage = () =>
+	<div>
+		<h1>Reset your password</h1>
+		<PasswordForgetForm />
+	</div>
+
+const INITIAL_STATE = {
+	email: '',
+	error: '',
+	resetMessage: ''
 }
 
-export default PasswordForget;
+class PasswordForgetForm extends React.Component {
+	constructor() {
+		super();
+		this.state = { ...INITIAL_STATE }
+	}
+
+	onSubmit = (e) => {
+		const { email } = this.state;
+		const resetMessage = 'We have sent an email with reset link to your mailbox.';
+
+		auth.doPasswordReset(email)
+			.then(() => {
+				this.setState({resetMessage: resetMessage});
+			})
+			.catch((error) => this.setState({error: error}))
+		
+		e.preventDefault();
+	}
+
+	render() {
+		const { email, error, resetMessage } = this.state;
+		const isInvalid = email === '';
+
+		return <div>
+			<form onSubmit={this.onSubmit}>
+				<input 
+					value={email}
+					onChange={(e) => this.setState({email: e.target.value})}
+					placeholder="Enter your email"
+				/>
+				<button
+					type="submit"
+					disabled={isInvalid}
+				>
+					Reset password
+				</button>
+				{ error && <p>error.message</p> }
+				<p>{ resetMessage }</p>
+			</form>
+		</div>
+	}
+
+
+}
+
+
+export default PasswordForgetPage;

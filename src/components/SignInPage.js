@@ -11,6 +11,7 @@ const SignInPage = ({ history }) =>
 		<h1>Sign in</h1>
 		<SignInForm history={history}/>
 		<SignUpLink />
+		<PasswordForgetLink />
 	</div>
 
 const INITIAL_STATE = {
@@ -78,6 +79,13 @@ const SignUpLink = () =>
 		Don't have an account?
 		{' '}
 		<Link to={routes.SIGN_UP}>Sign up</Link>
+	</p>
+
+const PasswordForgetLink = () => 
+	<p>
+		Forgot you password?
+		{' '}
+		<Link to={routes.PASSWORD_FORGET}>Reset password</Link>
 	</p>
 
 export default withRouter(SignInPage);
