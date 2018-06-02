@@ -86,11 +86,7 @@ class UserTodoList extends React.Component {
 	render() {
 		const { userTodoList } = this.state;
 		return <div>
-			<p>User's todo list</p>
-			<button onClick={() => console.log(userTodoList)}>
-				Click
-			</button>
-			{Object.values(userTodoList).map((item, key) => <p key={key}>{item}</p>)}
+			{userTodoList && Object.values(userTodoList).map((item, key) => <p key={key}>{item}</p>)}
 		</div>
 	}
 }
