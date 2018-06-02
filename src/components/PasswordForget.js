@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 import { auth } from '../firebase';
+import * as routes from '../constants/routes';
 
 const PasswordForgetPage = () =>
 	<div>
@@ -56,9 +57,18 @@ class PasswordForgetForm extends React.Component {
 			</form>
 		</div>
 	}
-
-
 }
 
 
+const PasswordForgetLink = () => 
+	<p>
+		Forgot you password?
+		{' '}
+		<Link to={routes.PASSWORD_FORGET}>Reset password</Link>
+	</p>
+
 export default PasswordForgetPage;
+
+export {
+	PasswordForgetLink
+}
