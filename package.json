@@ -3,17 +3,18 @@
 	"version": "0.1.0",
 	"private": true,
 	"dependencies": {
+		"bootstrap": "3.3.7",
 		"react": "^16.3.2",
+		"react-bootstrap": "^0.32.1",
 		"react-dom": "^16.3.2",
 		"react-final-form": "^3.4.0",
 		"react-firebase": "^2.2.8",
 		"react-router": "^4.2.0",
+		"react-router-bootstrap": "^0.24.4",
 		"react-router-dom": "4.1.1",
 		"react-scripts": "1.1.4",
 		"scripts": "^0.1.0",
-		"styled-components": "^3.2.6",
-		"react-bootstrap": "^0.32.1",
-		"bootstrap": "3.3.7"
+		"styled-components": "^3.2.6"
 	},
 	"scripts": {
 		"start": "react-scripts start",
