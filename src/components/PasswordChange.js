@@ -1,8 +1,6 @@
 import React from 'react';
 import * as firebase from 'firebase';
 
-import AuthUserContext from './AuthUserContext';
-
 const INITIAL_STATE = {
 	currentPass: '',
 	newPass: '',
