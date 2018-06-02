@@ -5,20 +5,20 @@ import { auth } from '../firebase';
 import * as routes from '../constants/routes';
 import { PasswordForgetLink } from './PasswordForget';
 
-
-const SignInPage = ({ history }) => 
+const SignInPage = ({ history }) => (
 	<div>
 		<h1>Sign in</h1>
-		<SignInForm history={history}/>
+		<SignInForm history={history} />
 		<SignUpLink />
 		<PasswordForgetLink />
 	</div>
+);
 
 const INITIAL_STATE = {
 	email: '',
 	password: '',
-	error: null
-}
+	error: null,
+};
 
 class SignInForm extends React.Component {
 	constructor() {
@@ -26,27 +26,23 @@ class SignInForm extends React.Component {
 		this.state = { ...INITIAL_STATE };
 	}
 
-	onSubmit = (e) => {
+	onSubmit = e => {
 		const { email, password } = this.state;
 		const { history } = this.props;
 
-	    auth.doSignInWithEmailAndPassword(email, password)
-	    	.then(() => {
-	    		this.setState(() => ({ ...INITIAL_STATE }));
-	    		history.push(routes.HOME);
-	    	})
-	    	.catch(error => this.setState({error: error}));
+		auth.doSignInWithEmailAndPassword(email, password)
+			.then(() => {
+				this.setState(() => ({ ...INITIAL_STATE }));
+				history.push(routes.USER_TODO_LIST);
+			})
+			.catch(error => this.setState({ error: error }));
 
 		e.preventDefault();
 		console.log('success');
-	}
+	};
 
 	render() {
-		const {
-			email,
-			password,
-			error
-		} = this.state;
+		const { email, password, error } = this.state;
 
 		const isInvalid = email === '' || password === '';
 
@@ -55,35 +51,31 @@ class SignInForm extends React.Component {
 				<form onSubmit={this.onSubmit}>
 					<input
 						value={email}
-						onChange={(e) => this.setState({email: e.target.value})}
+						onChange={e => this.setState({ email: e.target.value })}
 						placeholder="Your email"
 					/>
-					<input 
+					<input
 						value={password}
-						onChange={(e) => this.setState({password: e.target.value})}
+						onChange={e => this.setState({ password: e.target.value })}
 						type="password"
 						placeholder="Password"
 					/>
 					<button disabled={isInvalid} type="submit">
 						Sign in
 					</button>
-					{ error && <p>{error.message}</p> }
+					{error && <p>{error.message}</p>}
 				</form>
 			</div>
-		)
+		);
 	}
 }
 
-const SignUpLink = () =>
+const SignUpLink = () => (
 	<p>
-		Don't have an account?
-		{' '}
-		<Link to={routes.SIGN_UP}>Sign up</Link>
+		Don't have an account? <Link to={routes.SIGN_UP}>Sign up</Link>
 	</p>
+);
 
 export default withRouter(SignInPage);
 
-export {
-	SignInForm,
-	SignUpLink,
-}
+export { SignInForm, SignUpLink };
