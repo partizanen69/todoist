@@ -1,6 +1,6 @@
 import React from 'react';
 
-class LandingPage extends React.Component {
+class HomePage extends React.Component {
 	render() {
 		return (
 			<div>
@@ -16,7 +16,14 @@ class LandingPage extends React.Component {
 						<li>firebase real time database;</li>
 						<li>firebase hosting.</li>
 					</ul>
-					<li>s</li>
+					<li>The following main front end tools:</li>
+					<ul>
+						<li>React</li>
+						<li>React router</li>
+						<li>React bootstrap</li>
+						<li>Styled components</li>
+						<li>Please see complete list at package.json file</li>
+					</ul>
 				</ol>
 				<p>
 					Sorce code of the application can be reviewed at{' '}
@@ -27,4 +34,4 @@ class LandingPage extends React.Component {
 	}
 }
 
-export default LandingPage;
+export default HomePage;

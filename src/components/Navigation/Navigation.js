@@ -24,7 +24,7 @@ const Navigation = ({ authUser }) => (
 
 const NavigationAuth = () => (
   <Col sm={6}>
-    <Link to={routes.LANDING}>Home</Link>
+    <Link to={routes.HOME}>Home</Link>
     <Link to={routes.USER_TODO_LIST}>Your todo list</Link>
     <Link to={routes.ACCOUNT}>Account</Link>
     <SignOutButton />
@@ -33,7 +33,7 @@ const NavigationAuth = () => (
 
 const NavigationNonAuth = () => (
   <Col sm={6}>
-    <Link to={routes.LANDING}>Home</Link>
+    <Link to={routes.HOME}>Home</Link>
     <Link to={routes.SIGN_IN}>Sign in</Link>
   </Col>
 );

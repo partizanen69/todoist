@@ -4,7 +4,7 @@ import { Grid } from 'react-bootstrap';
 
 import * as routes from '../constants/routes';
 import Navigation from './Navigation/Navigation';
-import LandingPage from './LandingPage';
+import HomePage from './HomePage';
 import SignUpPage from './SignUpPage';
 import SignInPage from './SignInPage';
 import UserTodoList from './UserTodoList';
@@ -17,7 +17,7 @@ const App = () => (
         <div>
             <Navigation />
             <Grid>
-                <Route exact path={routes.LANDING} component={LandingPage} />
+                <Route exact path={routes.HOME} component={HomePage} />
                 <Route exact path={routes.SIGN_UP} component={SignUpPage} />
                 <Route exact path={routes.SIGN_IN} component={SignInPage} />
                 <Route exact path={routes.USER_TODO_LIST} component={UserTodoList} />
