@@ -8,7 +8,7 @@ import HomePage from './HomePage';
 import SignUpPage from './SignUpPage/SignUpPage';
 import SignInPage from './SignInPage/SignInPage';
 import UserTodoList from './UserTodoList';
-import Account from './Account';
+import Account from './Account/Account';
 import PasswordForget from './PasswordForget/PasswordForget';
 import withAuthentication from './withAuthentication';
 

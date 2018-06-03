@@ -1,7 +1,7 @@
 import React from 'react';
 import { Navbar, Nav, NavItem } from 'react-bootstrap';
 import { LinkContainer } from 'react-router-bootstrap';
-import { FaUser, FaUserPlus } from 'react-icons/lib/fa/';
+import { FaUser, FaUserPlus, FaListOl } from 'react-icons/lib/fa/';
 
 import * as routes from '../../constants/routes';
 import SignOutButton from './SignOutButton';
@@ -29,7 +29,9 @@ const Navigation = ({ authUser }) => (
 const NavigationAuth = () => (
   <Nav pullRight>
     <LinkContainer to={routes.USER_TODO_LIST}>
-      <NavItem eventKey={2}>Your todo list</NavItem>
+      <NavItem eventKey={2}>
+        <FaListOl /> Your todo list
+      </NavItem>
     </LinkContainer>
     <LinkContainer to={routes.ACCOUNT}>
       <NavItem eventKey={3}>

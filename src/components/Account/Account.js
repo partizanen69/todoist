@@ -1,9 +1,10 @@
 import React from 'react';
 
-import { PasswordForgetLink } from './PasswordForget/PasswordForget';
+import { PasswordForgetLink } from '../PasswordForget/PasswordForget';
 import PasswordChange from './PasswordChange';
-import withAuthorization from './withAuthorization';
-import firebase from '../firebase/firebase';
+import withAuthorization from '../withAuthorization';
+import firebase from '../../firebase/firebase';
+import Styles from './Styles';
 
 class Account extends React.Component {
   constructor() {
@@ -28,13 +29,18 @@ class Account extends React.Component {
     const { email, username } = this.state.userDatabase;
 
     return (
-      <div>
-        <h1>Account details</h1>
-        <p>Your email is {email}</p>
-        <p>Your username is {username}</p>
-        <PasswordForgetLink />
-        <PasswordChange />
-      </div>
+      <Styles>
+        <div className="wrapper">
+          <div>
+            <h1>Account details</h1>
+            <p>Your email is {email}</p>
+            <p>Your username is {username}</p>
+            <PasswordForgetLink />
+            <p>To change your password please fill the form below:</p>
+            <PasswordChange />
+          </div>
+        </div>
+      </Styles>
     );
   }
 }
