@@ -40,7 +40,7 @@ class AddTodoForm extends React.Component {
 
 	onSubmit = e => {
 		e.preventDefault();
-		const { inputValue } = this.state;
+		const inputValue = this.state.inputValue;
 		const { uid } = this.props;
 		firebase
 			.database()
