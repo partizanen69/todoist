@@ -1,17 +1,23 @@
 import React from 'react';
 import { Link, withRouter } from 'react-router-dom';
+import { FormGroup, FormControl, Button } from 'react-bootstrap';
 
-import { auth } from '../firebase';
-import * as routes from '../constants/routes';
-import { PasswordForgetLink } from './PasswordForget';
+import { auth } from '../../firebase';
+import * as routes from '../../constants/routes';
+import { PasswordForgetLink } from '../PasswordForget/PasswordForget';
+import Styles from './Styles';
 
 const SignInPage = ({ history }) => (
-	<div>
-		<h1>Sign in</h1>
-		<SignInForm history={history} />
-		<SignUpLink />
-		<PasswordForgetLink />
-	</div>
+	<Styles>
+		<div className="wrapper">
+			<div>
+				<h1>Sign in</h1>
+				<SignInForm history={history} />
+				<SignUpLink />
+				<PasswordForgetLink />
+			</div>
+		</div>
+	</Styles>
 );
 
 const INITIAL_STATE = {
@@ -47,25 +53,30 @@ class SignInForm extends React.Component {
 		const isInvalid = email === '' || password === '';
 
 		return (
-			<div>
-				<form onSubmit={this.onSubmit}>
-					<input
+			<form onSubmit={this.onSubmit}>
+				<FormGroup>
+					<FormControl
+						type="text"
 						value={email}
 						onChange={e => this.setState({ email: e.target.value })}
 						placeholder="Your email"
 					/>
-					<input
+				</FormGroup>
+				<FormGroup>
+					<FormControl
 						value={password}
 						onChange={e => this.setState({ password: e.target.value })}
 						type="password"
 						placeholder="Password"
 					/>
-					<button disabled={isInvalid} type="submit">
+				</FormGroup>
+				<FormGroup>
+					<Button disabled={isInvalid} type="submit">
 						Sign in
-					</button>
-					{error && <p>{error.message}</p>}
-				</form>
-			</div>
+					</Button>
+				</FormGroup>
+				{error && <p>{error.message}</p>}
+			</form>
 		);
 	}
 }

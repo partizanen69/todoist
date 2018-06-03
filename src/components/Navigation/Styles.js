@@ -1,7 +1,7 @@
-import styled, { css } from 'styled-components';
+import styled from 'styled-components';
 
 export default styled.div`
-  .navbar-brand {
-    cursor: pointer;
-  }
+	.navbar-brand {
+		cursor: pointer;
+	}
 `;

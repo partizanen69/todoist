@@ -1,16 +1,16 @@
 import React from 'react';
 
-import { PasswordForgetLink } from './PasswordForget';
+import { PasswordForgetLink } from './PasswordForget/PasswordForget';
 import PasswordChange from './PasswordChange';
 import withAuthorization from './withAuthorization';
-import firebase from "../firebase/firebase";
+import firebase from '../firebase/firebase';
 
 class Account extends React.Component {
   constructor() {
     super();
     this.state = {
-      userDatabase: {}
-    }
+      userDatabase: {},
+    };
   }
 
   componentDidMount() {
@@ -19,14 +19,13 @@ class Account extends React.Component {
     userDatabase.on('value', snapshot => {
       let obj = snapshot.val();
       this.setState({
-        userDatabase: obj
-      })
-    })
+        userDatabase: obj,
+      });
+    });
   }
 
   render() {
-    
-    const { email, username } = this.state.userDatabase; 
+    const { email, username } = this.state.userDatabase;
 
     return (
       <div>
@@ -36,10 +35,10 @@ class Account extends React.Component {
         <PasswordForgetLink />
         <PasswordChange />
       </div>
-    )
+    );
   }
 }
 
-const authCondition = (authUser) => !!authUser;
+const authCondition = authUser => !!authUser;
 
 export default withAuthorization(authCondition)(Account);

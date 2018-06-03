@@ -5,11 +5,11 @@ import { Grid } from 'react-bootstrap';
 import * as routes from '../constants/routes';
 import Navigation from './Navigation/Navigation';
 import HomePage from './HomePage';
-import SignUpPage from './SignUpPage';
-import SignInPage from './SignInPage';
+import SignUpPage from './SignUpPage/SignUpPage';
+import SignInPage from './SignInPage/SignInPage';
 import UserTodoList from './UserTodoList';
 import Account from './Account';
-import PasswordForget from './PasswordForget';
+import PasswordForget from './PasswordForget/PasswordForget';
 import withAuthentication from './withAuthentication';
 
 const App = () => (

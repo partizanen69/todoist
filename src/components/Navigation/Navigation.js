@@ -2,6 +2,7 @@ import React from 'react';
 import { Grid, Row, Col, Navbar, Nav, NavItem } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import { LinkContainer } from 'react-router-bootstrap';
+import { FaUser, FaUserPlus } from 'react-icons/lib/fa/';
 
 import * as routes from '../../constants/routes';
 import SignOutButton from './SignOutButton';
@@ -32,7 +33,9 @@ const NavigationAuth = () => (
       <NavItem eventKey={2}>Your todo list</NavItem>
     </LinkContainer>
     <LinkContainer to={routes.ACCOUNT}>
-      <NavItem eventKey={3}>Account</NavItem>
+      <NavItem eventKey={3}>
+        <FaUser /> Account
+      </NavItem>
     </LinkContainer>
     <NavItem eventKey={4}>
       <SignOutButton />
@@ -43,7 +46,14 @@ const NavigationAuth = () => (
 const NavigationNonAuth = () => (
   <Nav pullRight>
     <LinkContainer to={routes.SIGN_IN}>
-      <NavItem eventKey={2}>Sign in</NavItem>
+      <NavItem eventKey={1}>
+        <FaUser /> Sign in
+      </NavItem>
+    </LinkContainer>
+    <LinkContainer to={routes.SIGN_UP}>
+      <NavItem eventKey={2}>
+        <FaUserPlus /> Sign up
+      </NavItem>
     </LinkContainer>
   </Nav>
 );
