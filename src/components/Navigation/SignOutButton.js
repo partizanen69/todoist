@@ -1,6 +1,7 @@
 import React from 'react';
 
 import { auth } from '../../firebase/';
+import { FaSignOut } from 'react-icons/lib/fa/';
 
 class SignOutLink extends React.Component {
 	signOut = e => {
@@ -10,9 +11,9 @@ class SignOutLink extends React.Component {
 
 	render() {
 		return (
-			<a href="#" onClick={this.signOut}>
-				Sign out
-			</a>
+			<span className="sign-out" onClick={this.signOut}>
+				<FaSignOut /> Sign out
+			</span>
 		);
 	}
 }
