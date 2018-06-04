@@ -12,7 +12,9 @@ class AddProject extends React.Component {
 	}
 
 	componentDidMount() {
-		this.setState({ uid: firebase.auth().currentUser.uid });
+		const { uid } = this.props;
+
+		this.setState({ uid: uid });
 	}
 
 	onSubmit = e => {
@@ -47,28 +49,11 @@ class AddProject extends React.Component {
 class ProjectList extends React.Component {
 	constructor() {
 		super();
-		this.state = {
-			projects: {},
-		};
-	}
-
-	componentDidMount() {
-		const { uid } = this.props;
-
-		const userProjects = firebase
-			.database()
-			.ref('users/' + uid + '/projects');
-
-		userProjects.on('value', snapshot => {
-			let obj = snapshot.val();
-			this.setState({
-				projects: obj,
-			});
-		});
+		this.state = {};
 	}
 
 	render() {
-		const { projects } = this.state;
+		const { projects } = this.props.userDatabase;
 
 		return (
 			<div>
@@ -76,9 +61,6 @@ class ProjectList extends React.Component {
 				{Object.values(projects).map((item, key) => (
 					<p key={key}>{item}</p>
 				))}
-				<button onClick={() => console.log(this.state.projects)}>
-					Click
-				</button>
 			</div>
 		);
 	}

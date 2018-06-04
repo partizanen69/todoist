@@ -9,22 +9,32 @@ class UserTodoList extends React.Component {
 		super();
 		this.state = {
 			uid: '',
+			userDatabase: {},
 		};
 	}
 
 	componentDidMount() {
-		this.setState({ uid: firebase.auth().currentUser.uid });
+		const { uid } = firebase.auth().currentUser;
+		const userDatabase = firebase.database().ref('users/' + uid);
+
+		userDatabase.on('value', snapshot => {
+			let obj = snapshot.val();
+			this.setState({
+				userDatabase: obj,
+				uid: uid,
+			});
+		});
 	}
 
 	render() {
-		const { uid } = this.state;
+		const { uid, userDatabase } = this.state;
 
 		return (
 			<div>
 				{uid && <AddProject uid={uid} />}
-				{uid && <ProjectList uid={uid} />}
+				{uid && <ProjectList uid={uid} userDatabase={userDatabase} />}
 				{uid && <AddTodoForm uid={uid} />}
-				{uid && <UserTodoItems uid={uid} />}
+				{uid && <UserTodoItems uid={uid} userDatabase={userDatabase} />}
 			</div>
 		);
 	}
@@ -74,33 +84,16 @@ class AddTodoForm extends React.Component {
 class UserTodoItems extends React.Component {
 	constructor() {
 		super();
-		this.state = {
-			userTodoList: {},
-			uid: '',
-		};
-	}
-
-	componentDidMount() {
-		const { uid } = this.props;
-		const userTodoList = firebase
-			.database()
-			.ref('users/' + uid + '/todoList');
-		userTodoList.on('value', snapshot => {
-			let obj = snapshot.val();
-			this.setState({
-				userTodoList: obj,
-			});
-		});
+		this.state = {};
 	}
 
 	render() {
-		const { userTodoList } = this.state;
+		const { todoList } = this.props.userDatabase;
 		return (
 			<div>
-				{userTodoList &&
-					Object.values(userTodoList).map((item, key) => (
-						<p key={key}>{item}</p>
-					))}
+				{Object.values(todoList).map((item, key) => {
+					return <p key={key}>{item}</p>;
+				})}
 			</div>
 		);
 	}
