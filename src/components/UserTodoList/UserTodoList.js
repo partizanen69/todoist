@@ -1,8 +1,10 @@
 import React from 'react';
+import { Row, Col } from 'react-bootstrap';
 
 import withAuthorization from '../withAuthorization';
 import firebase from '../../firebase/firebase';
 import { AddProject, ProjectList } from './Projects';
+import Styles from './Styles';
 
 class UserTodoList extends React.Component {
 	constructor() {
@@ -30,12 +32,28 @@ class UserTodoList extends React.Component {
 		const { uid, userDatabase } = this.state;
 
 		return (
-			<div>
-				{uid && <AddProject uid={uid} />}
-				{uid && <ProjectList uid={uid} userDatabase={userDatabase} />}
-				{uid && <AddTodoForm uid={uid} />}
-				{uid && <UserTodoItems uid={uid} userDatabase={userDatabase} />}
-			</div>
+			<Styles>
+				<Row>
+					<Col sm={3}>
+						{uid && <AddProject uid={uid} />}
+						{uid && (
+							<ProjectList
+								uid={uid}
+								userDatabase={userDatabase}
+							/>
+						)}
+					</Col>
+					<Col sm={9}>
+						{uid && <AddTodoForm uid={uid} />}
+						{uid && (
+							<UserTodoItems
+								uid={uid}
+								userDatabase={userDatabase}
+							/>
+						)}
+					</Col>
+				</Row>
+			</Styles>
 		);
 	}
 }

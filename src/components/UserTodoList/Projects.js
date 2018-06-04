@@ -1,25 +1,21 @@
 import React from 'react';
+import { Row, Col } from 'react-bootstrap';
 
 import firebase from '../../firebase/firebase';
+import EditProjectButton from './EditProjectButton';
 
 class AddProject extends React.Component {
 	constructor() {
 		super();
 		this.state = {
-			uid: '',
 			inputValue: '',
 		};
 	}
 
-	componentDidMount() {
-		const { uid } = this.props;
-
-		this.setState({ uid: uid });
-	}
-
 	onSubmit = e => {
 		e.preventDefault();
-		const { inputValue, uid } = this.state;
+		const { inputValue } = this.state;
+		const { uid } = this.props;
 		firebase
 			.database()
 			.ref('users/' + uid + '/projects')
@@ -31,6 +27,7 @@ class AddProject extends React.Component {
 
 		return (
 			<div>
+				<p>Projects</p>
 				<form onSubmit={this.onSubmit}>
 					<input
 						value={inputValue}
@@ -52,14 +49,31 @@ class ProjectList extends React.Component {
 		this.state = {};
 	}
 
+	duHast(e, key) {
+		console.log('event', e);
+		console.log('event.target', e.target);
+		console.log('e.screenX', e.screenX);
+		console.log('e.screenY', e.screenY);
+		console.log('key', key);
+	}
+
 	render() {
 		const { projects } = this.props.userDatabase;
 
 		return (
 			<div>
-				<p>Projects</p>
 				{Object.values(projects).map((item, key) => (
-					<p key={key}>{item}</p>
+					<Row key={key}>
+						<Col xs={9}>
+							<p key={key}>{item}</p>
+						</Col>
+						<Col xs={3} key={key}>
+							<EditProjectButton
+								onClick={this.duHast.bind(this)}
+								key={key}
+							/>
+						</Col>
+					</Row>
 				))}
 			</div>
 		);
