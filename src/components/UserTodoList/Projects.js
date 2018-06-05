@@ -46,31 +46,33 @@ class AddProject extends React.Component {
 class ProjectList extends React.Component {
 	constructor() {
 		super();
-		this.state = {};
+		this.state = {
+			editProject: ''
+		};
 	}
 
-	duHast(e, key) {
-		console.log('event', e);
-		console.log('event.target', e.target);
-		console.log('e.screenX', e.screenX);
-		console.log('e.screenY', e.screenY);
-		console.log('key', key);
+	editProjects(editProjectId, e) {
+		console.log('editProjectId', editProjectId);
 	}
 
 	render() {
 		const { projects } = this.props.userDatabase;
+		const { uid } = this.props;
 
 		return (
 			<div>
-				{Object.values(projects).map((item, key) => (
+				{Object.keys(projects).map(key => (
 					<Row key={key}>
 						<Col xs={9}>
-							<p key={key}>{item}</p>
+							<div key={key}>
+								{projects[key]}
+							</div>
 						</Col>
 						<Col xs={3} key={key}>
-							<EditProjectButton
-								onClick={this.duHast.bind(this)}
-								key={key}
+							<EditProjectButton 
+								projectId={key} 
+								uid={uid}
+								editProjects={this.editProjects.bind(this)} 
 							/>
 						</Col>
 					</Row>
