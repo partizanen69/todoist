@@ -12,8 +12,9 @@ class EditProjectButton extends React.Component {
 	}
 
 
-	editProject() {
-
+	editProject(projectId, e) {
+		this.props.editProjects.bind(null, projectId);
+		this.props.editProjects(projectId);
 	}
 
 	deleteProject(projectId, e) {
@@ -31,7 +32,7 @@ class EditProjectButton extends React.Component {
 	}
 
 	render() {
-		const { projectId } = this.props;
+		const { projectId, editProjects } = this.props;
 		const { menuActive } = this.state;
 		return (
 			<span>
@@ -48,7 +49,7 @@ class EditProjectButton extends React.Component {
 					/>
 					
 				)}
-				<button onClick={() => this.props.editProjects.bind(null, 4)}>
+				<button onClick={editProjects.bind(null, projectId)}>
 						Click
 					</button>
 			</span>

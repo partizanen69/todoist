@@ -51,8 +51,8 @@ class ProjectList extends React.Component {
 		};
 	}
 
-	editProjects(editProjectId, e) {
-		console.log('editProjectId', editProjectId);
+	editProjects(projectId, e) {
+		console.log(4);
 	}
 
 	render() {
