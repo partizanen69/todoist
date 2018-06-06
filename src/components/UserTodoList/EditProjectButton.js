@@ -6,18 +6,18 @@ class EditProjectButton extends React.Component {
 	constructor() {
 		super();
 		this.state = {
-			menuActive: false,
-			editProjectId: ''
+			menuActive: false
 		};
 	}
 
 
-	editProject(projectId, e) {
-		this.props.editProjects.bind(null, projectId);
-		this.props.editProjects(projectId);
+	editProject = (projectId, e) => {
+		const { editProjects } = this.props;
+		editProjects.bind(null, projectId);
+		editProjects(projectId);
 	}
 
-	deleteProject(projectId, e) {
+	deleteProject = (projectId, e) => {
 		const { uid } = this.props;
 		console.log('uid', uid);
 		console.log('projectId', projectId);
@@ -27,9 +27,8 @@ class EditProjectButton extends React.Component {
 			.remove();
 	}
 
-	cancel() {
+	cancel = () => 
 		this.setState({ menuActive: false });
-	}
 
 	render() {
 		const { projectId, editProjects } = this.props;
@@ -43,15 +42,12 @@ class EditProjectButton extends React.Component {
 				{menuActive && (
 					<EditProjectMenu
 						projectId={projectId}
-						cancel={this.cancel.bind(this)}
-						deleteProject={this.deleteProject.bind(this)}
-						editProject={this.editProject.bind(this)}
+						cancel={this.cancel}
+						deleteProject={this.deleteProject}
+						editProject={this.editProject}
 					/>
 					
 				)}
-				<button onClick={editProjects.bind(null, projectId)}>
-						Click
-					</button>
 			</span>
 		);
 	}
@@ -66,7 +62,7 @@ class EditProjectMenu extends React.Component {
 		const { 
 			projectId, 
 			cancel, 
-			deleteProject, 
+			deleteProject,
 			editProject 
 		} = this.props;
 

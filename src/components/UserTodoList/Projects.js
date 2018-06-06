@@ -3,6 +3,7 @@ import { Row, Col } from 'react-bootstrap';
 
 import firebase from '../../firebase/firebase';
 import EditProjectButton from './EditProjectButton';
+import EditProjectInput from './EditProjectInput';
 
 class AddProject extends React.Component {
 	constructor() {
@@ -47,17 +48,22 @@ class ProjectList extends React.Component {
 	constructor() {
 		super();
 		this.state = {
-			editProject: ''
+			editProjectId: ''
 		};
 	}
 
-	editProjects(projectId, e) {
-		console.log(4);
+	editProjects = (projectId, e) => {
+		console.log(projectId);
+		this.setState({editProjectId: projectId});
+
 	}
 
+	saveProject = () => this.setState({editProjectId: ''})
+	
 	render() {
 		const { projects } = this.props.userDatabase;
 		const { uid } = this.props;
+		const { editProjectId } = this.state;
 
 		return (
 			<div>
@@ -65,14 +71,20 @@ class ProjectList extends React.Component {
 					<Row key={key}>
 						<Col xs={9}>
 							<div key={key}>
-								{projects[key]}
+								{editProjectId ===  key
+									? <EditProjectInput 
+										projectId={key} 
+										saveProject={this.saveProject}
+										uid={uid}
+									  /> 
+									: projects[key]}
 							</div>
 						</Col>
 						<Col xs={3} key={key}>
 							<EditProjectButton 
 								projectId={key} 
 								uid={uid}
-								editProjects={this.editProjects.bind(this)} 
+								editProjects={this.editProjects} 
 							/>
 						</Col>
 					</Row>
