@@ -10,11 +10,11 @@ class EditProjectButton extends React.Component {
 		};
 	}
 
-
 	editProject = (projectId, e) => {
 		const { editProjects } = this.props;
 		editProjects.bind(null, projectId);
 		editProjects(projectId);
+		this.cancel();
 	}
 
 	deleteProject = (projectId, e) => {
@@ -58,6 +58,19 @@ class EditProjectMenu extends React.Component {
 		super();
 	}
 
+	componentWillMount() {
+		document.addEventListener('mousedown', this.handleClick, false);
+	}
+
+	componentWillUnmount() {
+		document.removeEventListener('mousedown', this.handleClick, false);
+	}
+
+	handleClick = (e) => {
+		!this.editProjectMenu.contains(e.target) 
+			&& this.props.cancel();
+	}
+
 	render() {
 		const { 
 			projectId, 
@@ -67,7 +80,11 @@ class EditProjectMenu extends React.Component {
 		} = this.props;
 
 		return (
-			<div>
+			<div 
+				className="edit-project-menu"
+				ref={node => this.editProjectMenu = node}
+			>
+
 				<div 
 					onClick={editProject.bind(null, projectId)}
 				>

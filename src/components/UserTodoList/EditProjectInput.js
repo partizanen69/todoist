@@ -11,6 +11,10 @@ class EditProjectInput extends React.Component {
 		}
 	}
 
+	componentDidMount() {
+		this.setState({inputValue: this.props.value})
+	}
+
 	saveProject = (e) => {
 		e.preventDefault();
 		const { inputValue } = this.state;
@@ -26,7 +30,7 @@ class EditProjectInput extends React.Component {
 
 	render() {
 		const { inputValue } = this.state;
-		const { projectId } = this.props;
+		const { projectId, cancelEdit } = this.props;
 
 		return <div>
 			<FormGroup>
@@ -43,7 +47,7 @@ class EditProjectInput extends React.Component {
 				>
 					Save
 				</Button>
-				<Button>
+				<Button onClick={cancelEdit}>
 					Cancel
 				</Button>
 			</FormGroup>

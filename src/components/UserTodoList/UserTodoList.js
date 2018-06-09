@@ -3,7 +3,7 @@ import { Row, Col } from 'react-bootstrap';
 
 import withAuthorization from '../withAuthorization';
 import firebase from '../../firebase/firebase';
-import { AddProject, ProjectList } from './Projects';
+import Projects from './Projects';
 import Styles from './Styles';
 
 class UserTodoList extends React.Component {
@@ -34,23 +34,21 @@ class UserTodoList extends React.Component {
 		return (
 			<Styles>
 				<Row>
-					<Col sm={3}>
-						{uid && <AddProject uid={uid} />}
-						{uid && (
-							<ProjectList
-								uid={uid}
-								userDatabase={userDatabase}
+					<Col sm={4}>
+						{uid && <Projects 
+							uid={uid} 
+							userDatabase={userDatabase}
 							/>
-						)}
+						}
 					</Col>
-					<Col sm={9}>
+					<Col sm={8}>
 						{uid && <AddTodoForm uid={uid} />}
-						{uid && (
+						{uid &&
 							<UserTodoItems
 								uid={uid}
 								userDatabase={userDatabase}
 							/>
-						)}
+						}
 					</Col>
 				</Row>
 			</Styles>
