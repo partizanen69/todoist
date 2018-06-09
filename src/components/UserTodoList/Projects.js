@@ -124,7 +124,8 @@ class ProjectList extends React.Component {
 	constructor() {
 		super();
 		this.state = {
-			editProjectId: ''
+			editProjectId: '',
+			props: {}
 		};
 	}
 
@@ -139,9 +140,13 @@ class ProjectList extends React.Component {
 
 	saveProject = () => this.setState({editProjectId: ''})
 	
+	static getDerivedStateFromProps(props, state) {
+		return { props: props }
+	}
+
 	render() {
-		const { projects } = this.props.userDatabase;
-		const { uid } = this.props;
+		const { projects } = this.state.props.userDatabase;
+		const { uid } = this.state.props;
 		const { editProjectId } = this.state;
 
 		return (

@@ -35,20 +35,17 @@ class UserTodoList extends React.Component {
 			<Styles>
 				<Row>
 					<Col sm={4}>
-						{uid && <Projects 
+						<Projects 
 							uid={uid} 
 							userDatabase={userDatabase}
-							/>
-						}
+						/>
 					</Col>
 					<Col sm={8}>
-						{uid && <AddTodoForm uid={uid} />}
-						{uid &&
-							<UserTodoItems
-								uid={uid}
-								userDatabase={userDatabase}
-							/>
-						}
+						<AddTodoForm uid={uid} />
+						<UserTodoItems
+							uid={uid}
+							userDatabase={userDatabase}
+						/>
 					</Col>
 				</Row>
 			</Styles>
@@ -107,7 +104,7 @@ class UserTodoItems extends React.Component {
 		const { todoList } = this.props.userDatabase;
 		return (
 			<div>
-				{Object.values(todoList).map((item, key) => {
+				{todoList && Object.values(todoList).map((item, key) => {
 					return <p key={key}>{item}</p>;
 				})}
 			</div>
