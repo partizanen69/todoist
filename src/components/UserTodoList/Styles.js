@@ -16,11 +16,12 @@ export default styled.div`
 
 	.toggle-arrow {
 		display: inline-block;
-		width: 10px;
-		height: 10px;
-		border-bottom: 1px solid black;
-		border-left: 1px solid black;
-		transform: rotate(0.25turn);
+		width: 8px;
+		height: 8px;
+		border-bottom: 1.5px solid rgba(0,0,0,0.54);
+    	border-left: 1.5px solid rgba(0,0,0,0.54);
+		opacity: 0.3;
+		margin-right: 5px;
 	}
 	
 	.projects-list-container {

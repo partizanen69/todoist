@@ -17,7 +17,6 @@ class Projects extends React.Component {
 	toggle = () => {
 		const { open } = this.state;
 		this.setState({open: !open});
-		console.log(open);
 	}
 
 	render() {
@@ -34,7 +33,7 @@ class Projects extends React.Component {
 				bsClass="projects-panel-heading"
 			>
             <Panel.Title >
-              <ToggleArrow /> Projects
+              <ToggleArrow open={open} /> Projects
             </Panel.Title>
           </Panel.Heading>
 			<Panel.Collapse>
@@ -55,12 +54,26 @@ class Projects extends React.Component {
 class ToggleArrow extends React.Component {
 	constructor() {
 		super();
+		this.state = {
+			turn: null
+		}
+	}
 
+	static getDerivedStateFromProps(props, state) {
+		const { open } = props;
+		return { turn: open ? 0.875 : 0.375 }
 	}
 
 	render() {
-		return <div className="toggle-arrow">
-		</div>
+		const { turn } = this.state;
+
+		return ( 
+			<div 
+				className="toggle-arrow"
+				style={{transform: `rotate(${turn}turn)`}}
+			>
+			</div>
+		)
 	}
 }
 
