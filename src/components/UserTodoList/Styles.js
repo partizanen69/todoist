@@ -1,6 +1,17 @@
 import styled from 'styled-components';
 
 export default styled.div`
+	.add-project-container {
+
+		& input {
+			margin-bottom: 5px;
+		}
+
+		& div {
+			margin-bottom: 5px;
+		}
+	}
+
 	.circle {
 		color: green;
 	}
@@ -8,11 +19,27 @@ export default styled.div`
 	.panel-heading {
 		cursor: pointer;
 		padding: 5px;
+
+		& .panel-title {
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+
+			& .add-project-button {
+				color: rgba(0,0,0,0.3);
+			}
+
+			& .add-project-button:hover {
+				color: rgba(0,0,0,1);	
+			}
+		}
 	}
 
 	.panel-body {
 		padding: 5px;
 	}
+
+	
 
 	.toggle-arrow {
 		display: inline-block;
@@ -21,7 +48,7 @@ export default styled.div`
 		border-bottom: 1.5px solid rgba(0,0,0,0.54);
     	border-left: 1.5px solid rgba(0,0,0,0.54);
 		opacity: 0.3;
-		margin-right: 5px;
+		margin: 0 5px 0 3px;
 	}
 	
 	.projects-list-container {

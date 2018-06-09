@@ -1,6 +1,7 @@
 import React from 'react';
 import { Row, Col, FormGroup, FormControl, Button, Panel } from 'react-bootstrap';
 import { FaCircle } from 'react-icons/lib/fa/';
+import { IoAndroidAdd } from 'react-icons/lib/io/';
 
 import firebase from '../../firebase/firebase';
 import EditProjectButton from './EditProjectButton';
@@ -32,8 +33,12 @@ class Projects extends React.Component {
 				onClick={this.toggle}
 				bsClass="projects-panel-heading"
 			>
-            <Panel.Title >
-              <ToggleArrow open={open} /> Projects
+            <Panel.Title>
+				<ToggleArrow open={open} /> 
+				Projects
+				<span className="add-project-button">
+					<IoAndroidAdd />
+				</span>
             </Panel.Title>
           </Panel.Heading>
 			<Panel.Collapse>
@@ -100,7 +105,7 @@ class AddProject extends React.Component {
 		const { inputValue } = this.state;
 
 		return (
-			<div>
+			<div className="add-project-container">
 				<form onSubmit={this.onSubmit}>
 					<FormGroup>
 					<FormControl
@@ -110,8 +115,6 @@ class AddProject extends React.Component {
 						}
 						placeholder="Add new project"
 					/>
-					</FormGroup>
-					<FormGroup>
 					<Button type="submit">Add project</Button>
 					</FormGroup>
 				</form>
