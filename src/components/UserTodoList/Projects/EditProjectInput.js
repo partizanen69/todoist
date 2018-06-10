@@ -1,7 +1,7 @@
 import React from 'react';
 import { Button, FormGroup, FormControl } from 'react-bootstrap';
 
-import firebase from '../../firebase/firebase';
+import firebase from '../../../firebase/firebase';
 
 class EditProjectInput extends React.Component {
 	constructor() {

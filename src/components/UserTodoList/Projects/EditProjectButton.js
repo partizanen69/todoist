@@ -1,6 +1,8 @@
 import React from 'react';
 import { FaEdit } from 'react-icons/lib/fa/';
-import firebase from '../../firebase/firebase';
+
+import firebase from '../../../firebase/firebase';
+import EditProjectMenu from './EditProjectMenu';
 
 class EditProjectButton extends React.Component {
 	constructor() {
@@ -49,52 +51,6 @@ class EditProjectButton extends React.Component {
 					
 				)}
 			</span>
-		);
-	}
-}
-
-class EditProjectMenu extends React.Component {
-	constructor() {
-		super();
-	}
-
-	componentWillMount() {
-		document.addEventListener('mousedown', this.handleClick, false);
-	}
-
-	componentWillUnmount() {
-		document.removeEventListener('mousedown', this.handleClick, false);
-	}
-
-	handleClick = (e) => {
-		!this.editProjectMenu.contains(e.target) 
-			&& this.props.cancel();
-	}
-
-	render() {
-		const { 
-			projectId, 
-			cancel, 
-			deleteProject,
-			editProject 
-		} = this.props;
-
-		return (
-			<div 
-				className="edit-project-menu"
-				ref={node => this.editProjectMenu = node}
-			>
-
-				<div 
-					onClick={editProject.bind(null, projectId)}
-				>
-					Edit project
-				</div>
-				<div onClick={deleteProject.bind(null, projectId)}>
-					Delete project
-				</div>
-				<div onClick={cancel}>Cancel</div>
-			</div>
 		);
 	}
 }

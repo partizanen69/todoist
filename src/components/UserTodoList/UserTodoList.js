@@ -3,8 +3,7 @@ import { Row, Col } from 'react-bootstrap';
 
 import withAuthorization from '../withAuthorization';
 import firebase from '../../firebase/firebase';
-import Projects from './Projects';
-import Styles from './Styles';
+import Projects from './Projects/Projects';
 
 class UserTodoList extends React.Component {
 	constructor() {
@@ -32,23 +31,21 @@ class UserTodoList extends React.Component {
 		const { uid, userDatabase } = this.state;
 
 		return (
-			<Styles>
-				<Row>
-					<Col sm={4}>
-						<Projects 
-							uid={uid} 
-							userDatabase={userDatabase}
-						/>
-					</Col>
-					<Col sm={8}>
-						<AddTodoForm uid={uid} />
-						<UserTodoItems
-							uid={uid}
-							userDatabase={userDatabase}
-						/>
-					</Col>
-				</Row>
-			</Styles>
+			<Row>
+				<Col sm={4}>
+					<Projects 
+						uid={uid} 
+						userDatabase={userDatabase}
+					/>
+				</Col>
+				<Col sm={8}>
+					<AddTodoForm uid={uid} />
+					<UserTodoItems
+						uid={uid}
+						userDatabase={userDatabase}
+					/>
+				</Col>
+			</Row>
 		);
 	}
 }
