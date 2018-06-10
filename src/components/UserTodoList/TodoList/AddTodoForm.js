@@ -1,5 +1,6 @@
 import React from 'react';
 import { IoAndroidAdd } from 'react-icons/lib/io/';
+import { FaTags, FaFileTextO, FaFlagO } from 'react-icons/lib/fa/';
 import { FormGroup, FormControl, Button } from 'react-bootstrap';
 
 import firebase from '../../../firebase/firebase';
@@ -8,7 +9,7 @@ class AddTodoForm extends React.Component {
 	constructor() {
 		super();
 		this.state = {
-			addItemOpen: false,
+			addItemOpen: true,
 		};
 	}
 
@@ -87,6 +88,9 @@ class TodoForm extends React.Component {
 						Add todo item
 					</Button>
 					<Button onClick={hideForm}>Cancel</Button>
+					<FaTags />
+					<FaFileTextO />
+					<FaFlagO />
 				</FormGroup>
 			</form>
 		);
