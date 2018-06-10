@@ -34,7 +34,7 @@ class UserTodoList extends React.Component {
 
 		return (
 			<Row>
-				<Col sm={3}>
+				<Col sm={4} md={3}>
 					<Projects 
 						uid={uid} 
 						userDatabase={userDatabase}
@@ -44,7 +44,7 @@ class UserTodoList extends React.Component {
 						userDatabase={userDatabase}
 					/>
 				</Col>
-				<Col sm={9}>
+				<Col sm={8} md={9}>
 					<TodoList
 						uid={uid}
 						userDatabase={userDatabase}

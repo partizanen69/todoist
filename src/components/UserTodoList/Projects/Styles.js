@@ -2,7 +2,6 @@ import styled from 'styled-components';
 
 export default styled.div`
 	.add-project-container {
-
 		& input {
 			margin-bottom: 5px;
 		}
@@ -30,11 +29,15 @@ export default styled.div`
 			align-items: center;
 
 			& .add-project-button {
-				color: rgba(0,0,0,0.3);
+				color: rgba(0, 0, 0, 0.3);
 			}
 
 			& .add-project-button:hover {
-				color: rgba(0,0,0,1);	
+				color: rgba(0, 0, 0, 1);
+			}
+
+			& .panel-title-name svg {
+				margin-right: 5px;
 			}
 		}
 	}
@@ -57,25 +60,22 @@ export default styled.div`
 		}
 	}
 
-	
-
 	.toggle-arrow {
 		display: inline-block;
 		width: 8px;
 		height: 8px;
-		border-bottom: 1.5px solid rgba(0,0,0,0.54);
-    	border-left: 1.5px solid rgba(0,0,0,0.54);
+		border-bottom: 1.5px solid rgba(0, 0, 0, 0.54);
+		border-left: 1.5px solid rgba(0, 0, 0, 0.54);
 		opacity: 0.3;
 		margin: 0 5px 0 3px;
 	}
-	
-	.projects-list-container {
 
+	.projects-list-container {
 		& .projects-row {
-			display:flex;
+			display: flex;
 			justify-content: space-between;
-		    padding: 6px 0px;
-    		border-radius: 3px;
+			padding: 6px 0px;
+			border-radius: 3px;
 
 			& > div {
 				padding: 0 3px;
@@ -97,34 +97,32 @@ export default styled.div`
 			}
 
 			& .edit-project-menu {
-			    position: absolute;
-			    width: 200px;
-			    background-color: #fff;
-			    z-index: 1;
-			    box-shadow: 0 1px 3px 0 rgba(0,0,0,0.4);
-			    border-radius: 3px;
-			    top: 20px;
-			    left: 15px;
-			    padding: 7px 0px;
-			    font-size: 14px;
+				position: absolute;
+				width: 200px;
+				background-color: #fff;
+				z-index: 1;
+				box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.4);
+				border-radius: 3px;
+				top: 20px;
+				left: 15px;
+				padding: 7px 0px;
+				font-size: 14px;
 
 				& > div {
 					cursor: pointer;
 					margin: 1px 0;
-		    		padding: 5px 10px;
+					padding: 5px 10px;
 				}
 
 				& > div:hover {
-					background-color: #F8F8F8;
+					background-color: #f8f8f8;
 				}
 			}
 		}
 
 		& .projects-row:hover {
-			background-color: #F8F8F8;
+			background-color: #f8f8f8;
 			cursor: pointer;
-		}	
+		}
 	}
-	
-	
 `;
