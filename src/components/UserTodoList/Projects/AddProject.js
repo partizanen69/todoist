@@ -14,7 +14,7 @@ class AddProject extends React.Component {
 	onSubmit = e => {
 		e.preventDefault();
 		const { inputValue } = this.state;
-		const { uid } = this.props;
+		const { uid, cancelProjForm } = this.props;
 		firebase
 			.database()
 			.ref('users/' + uid + '/projects')
@@ -25,6 +25,7 @@ class AddProject extends React.Component {
 
 	render() {
 		const { inputValue } = this.state;
+		const { cancelProjForm } = this.props;
 
 		return (
 			<div className="add-project-container">
@@ -38,6 +39,7 @@ class AddProject extends React.Component {
 						placeholder="Add new project"
 					/>
 					<Button type="submit">Add project</Button>
+					<Button onClick={cancelProjForm}>Cancel</Button>
 					</FormGroup>
 				</form>
 			</div>

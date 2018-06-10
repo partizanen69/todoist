@@ -12,7 +12,8 @@ class Projects extends React.Component {
 	constructor() {
 		super();
 		this.state = {
-			open: true
+			open: true,
+			openAddProjForm: false
 		}
 	}
 
@@ -21,9 +22,19 @@ class Projects extends React.Component {
 		this.setState({open: !open});
 	}
 
+	toggleAddProjForm = (e) => {
+		const { open } = this.state;
+		open && e.stopPropagation();
+		this.setState({openAddProjForm: true})
+	}
+
+	cancelProjForm = () => {
+		this.setState({openAddProjForm: false});
+	}
+
 	render() {
 		const { uid, userDatabase } = this.props;
-		const { open } = this.state;
+		const { open, openAddProjForm } = this.state;
 
 		return <Styles>
 			<Panel 
@@ -38,13 +49,20 @@ class Projects extends React.Component {
 					<ToggleArrow open={open} /> 
 					Projects
 					<span className="add-project-button">
-						<IoAndroidAdd />
+						<IoAndroidAdd 
+							onClick={this.toggleAddProjForm}
+						/>
 					</span>
 	            </Panel.Title>
 	          </Panel.Heading>
 				<Panel.Collapse>
 		            <Panel.Body>
-						<AddProject uid={uid} />
+						{openAddProjForm 
+							&& <AddProject 
+									uid={uid} 
+									cancelProjForm={this.cancelProjForm}
+							/>
+						}
 						<ProjectList
 							uid={uid}
 							userDatabase={userDatabase}

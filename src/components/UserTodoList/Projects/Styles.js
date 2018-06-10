@@ -10,6 +10,10 @@ export default styled.div`
 		& div {
 			margin-bottom: 5px;
 		}
+
+		& button {
+			margin-right: 5px;
+		}
 	}
 
 	.circle {
