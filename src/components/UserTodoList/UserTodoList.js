@@ -4,6 +4,8 @@ import { Row, Col } from 'react-bootstrap';
 import withAuthorization from '../withAuthorization';
 import firebase from '../../firebase/firebase';
 import Projects from './Projects/Projects';
+import Tags from './Tags/Tags';
+import TodoList from './TodoList/TodoList';
 
 class UserTodoList extends React.Component {
 	constructor() {
@@ -32,79 +34,23 @@ class UserTodoList extends React.Component {
 
 		return (
 			<Row>
-				<Col sm={4}>
+				<Col sm={3}>
 					<Projects 
 						uid={uid} 
 						userDatabase={userDatabase}
 					/>
+					<Tags 
+						uid={uid} 
+						userDatabase={userDatabase}
+					/>
 				</Col>
-				<Col sm={8}>
-					<AddTodoForm uid={uid} />
-					<UserTodoItems
+				<Col sm={9}>
+					<TodoList
 						uid={uid}
 						userDatabase={userDatabase}
 					/>
 				</Col>
 			</Row>
-		);
-	}
-}
-
-class AddTodoForm extends React.Component {
-	constructor() {
-		super();
-		this.state = {
-			inputValue: '',
-		};
-	}
-
-	onSubmit = e => {
-		e.preventDefault();
-		const { inputValue } = this.state;
-		const { uid } = this.props;
-		firebase
-			.database()
-			.ref('users/' + uid + '/todoList')
-			.push(inputValue);
-	};
-
-	render() {
-		const { inputValue } = this.state;
-
-		return (
-			<div>
-				<h1>Your todo list application</h1>
-				<form onSubmit={this.onSubmit}>
-					<input
-						value={inputValue}
-						onChange={e =>
-							this.setState({ inputValue: e.target.value })
-						}
-						placeholder="Enter you todo item"
-					/>
-					<button type="submit" disabled={inputValue === ''}>
-						Add todo item
-					</button>
-				</form>
-			</div>
-		);
-	}
-}
-
-class UserTodoItems extends React.Component {
-	constructor() {
-		super();
-		this.state = {};
-	}
-
-	render() {
-		const { todoList } = this.props.userDatabase;
-		return (
-			<div>
-				{todoList && Object.values(todoList).map((item, key) => {
-					return <p key={key}>{item}</p>;
-				})}
-			</div>
 		);
 	}
 }

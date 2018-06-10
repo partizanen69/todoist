@@ -3,7 +3,7 @@ import { FormGroup, FormControl, Button } from 'react-bootstrap';
 
 import firebase from '../../../firebase/firebase';
 
-class AddProject extends React.Component {
+class AddTag extends React.Component {
 	constructor() {
 		super();
 		this.state = {
@@ -17,7 +17,7 @@ class AddProject extends React.Component {
 		const { uid } = this.props;
 		firebase
 			.database()
-			.ref('users/' + uid + '/projects')
+			.ref('users/' + uid + '/tags')
 			.push(inputValue);
 
 		this.setState({inputValue: ''});
@@ -25,10 +25,10 @@ class AddProject extends React.Component {
 
 	render() {
 		const { inputValue } = this.state;
-		const { cancelProjForm } = this.props;
+		const { cancelTagForm } = this.props;
 
 		return (
-			<div className="add-project-container">
+			<div className="add-tag-container">
 				<form onSubmit={this.onSubmit}>
 					<FormGroup>
 					<FormControl
@@ -36,10 +36,10 @@ class AddProject extends React.Component {
 						onChange={e =>
 							this.setState({ inputValue: e.target.value })
 						}
-						placeholder="Add new project"
+						placeholder="Add new tag"
 					/>
-					<Button type="submit">Add project</Button>
-					<Button onClick={cancelProjForm}>Cancel</Button>
+					<Button type="submit">Add tag</Button>
+					<Button onClick={cancelTagForm}>Cancel</Button>
 					</FormGroup>
 				</form>
 			</div>
@@ -47,4 +47,4 @@ class AddProject extends React.Component {
 	}
 }
 
-export default AddProject;
+export default AddTag;

@@ -4,15 +4,15 @@ import { IoAndroidAdd } from 'react-icons/lib/io/';
 
 import Styles from './Styles';
 import ToggleArrow from '../MutualComps/ToggleArrow';
-import AddProject from './AddProject';
-import ProjectList from './ProjectList';
+import AddTag from './AddTag';
+import TagList from './TagList';
 
-class Projects extends React.Component {
+class Tags extends React.Component {
 	constructor() {
 		super();
 		this.state = {
 			open: true,
-			openAddProjForm: false
+			openAddTagForm: false
 		}
 	}
 
@@ -21,19 +21,19 @@ class Projects extends React.Component {
 		this.setState({open: !open});
 	}
 
-	openAddProjForm = (e) => {
+	openAddTagForm = (e) => {
 		const { open } = this.state;
 		open && e.stopPropagation();
-		this.setState({openAddProjForm: true})
+		this.setState({openAddTagForm: true})
 	}
 
-	cancelProjForm = () => {
-		this.setState({openAddProjForm: false});
+	cancelTagForm = () => {
+		this.setState({openAddTagForm: false});
 	}
 
 	render() {
 		const { uid, userDatabase } = this.props;
-		const { open, openAddProjForm } = this.state;
+		const { open, openAddTagForm } = this.state;
 
 		return <Styles>
 			<Panel 
@@ -45,39 +45,38 @@ class Projects extends React.Component {
 				>
 	            <Panel.Title>
 					<ToggleArrow open={open} /> 
-					Projects
-					<span className="add-project-button">
+					Tags
+					<span className="add-tag-button">
 						<IoAndroidAdd 
-							onClick={this.openAddProjForm}
+							onClick={this.openAddTagForm}
 						/>
 					</span>
 	            </Panel.Title>
 	          </Panel.Heading>
 				<Panel.Collapse>
 		            <Panel.Body>
-						{openAddProjForm 
-							&& <AddProject 
+						{openAddTagForm 
+							&& <AddTag 
 									uid={uid} 
-									cancelProjForm={this.cancelProjForm}
+									cancelTagForm={this.cancelTagForm}
 							/>
 						}
-						<ProjectList
+						<TagList
 							uid={uid}
 							userDatabase={userDatabase}
 						/>
 						<div 
-							className="add-project-link" 
-							onClick={this.openAddProjForm}
+							className="add-tag-link" 
+							onClick={this.openAddTagForm}
 						>
 							<span><IoAndroidAdd /></span>
-							Add project
+							Add tag
 						</div>
 					</Panel.Body>
 				</Panel.Collapse>
-		            
 			</Panel>
 		</Styles>
 	}
 }
 
-export default Projects;
+export default Tags;

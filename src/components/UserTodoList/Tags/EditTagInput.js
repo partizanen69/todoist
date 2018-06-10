@@ -3,7 +3,7 @@ import { Button, FormGroup, FormControl } from 'react-bootstrap';
 
 import firebase from '../../../firebase/firebase';
 
-class EditProjectInput extends React.Component {
+class EditTagInput extends React.Component {
 	constructor() {
 		super();
 		this.state = {
@@ -15,16 +15,16 @@ class EditProjectInput extends React.Component {
 		this.setState({inputValue: this.props.value})
 	}
 
-	saveProject = (e) => {
+	saveTag = (e) => {
 		e.preventDefault();
 		const { inputValue } = this.state;
-		const { uid, projectId } = this.props;
+		const { uid, tagId } = this.props;
 		firebase
 			.database()
-			.ref('users/' + uid + '/projects/' + projectId)
+			.ref('users/' + uid + '/tags/' + tagId)
 			.set(inputValue);
 
-		this.props.saveProject();
+		this.props.saveTag();
 
 	}
 
@@ -43,7 +43,7 @@ class EditProjectInput extends React.Component {
 			</FormGroup>
 			<FormGroup>
 				<Button
-					onClick={this.saveProject}
+					onClick={this.saveTag}
 				>
 					Save
 				</Button>
@@ -55,4 +55,4 @@ class EditProjectInput extends React.Component {
 	}
 }
 
-export default EditProjectInput;
+export default EditTagInput;

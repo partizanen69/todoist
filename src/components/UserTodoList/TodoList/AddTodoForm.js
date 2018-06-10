@@ -1,13 +1,14 @@
 import React from 'react';
-import { FormGroup, FormControl, Button } from 'react-bootstrap';
+import { IoAndroidAdd } from 'react-icons/lib/io/';
 
 import firebase from '../../../firebase/firebase';
 
-class AddProject extends React.Component {
+class AddTodoForm extends React.Component {
 	constructor() {
 		super();
 		this.state = {
-			inputValue: '',
+			addItemOpen: false,
+			inputValue: ''
 		};
 	}
 
@@ -17,34 +18,34 @@ class AddProject extends React.Component {
 		const { uid } = this.props;
 		firebase
 			.database()
-			.ref('users/' + uid + '/projects')
+			.ref('users/' + uid + '/todoList')
 			.push(inputValue);
-
-		this.setState({inputValue: ''});
 	};
 
 	render() {
 		const { inputValue } = this.state;
-		const { cancelProjForm } = this.props;
 
 		return (
-			<div className="add-project-container">
+			<div>
+				<a href className="add-task-link">
+					<span><IoAndroidAdd /></span>
+					Add task
+				</a>
 				<form onSubmit={this.onSubmit}>
-					<FormGroup>
-					<FormControl
+					<input
 						value={inputValue}
 						onChange={e =>
 							this.setState({ inputValue: e.target.value })
 						}
-						placeholder="Add new project"
+						placeholder="Enter you todo item"
 					/>
-					<Button type="submit">Add project</Button>
-					<Button onClick={cancelProjForm}>Cancel</Button>
-					</FormGroup>
+					<button type="submit" disabled={inputValue === ''}>
+						Add todo item
+					</button>
 				</form>
 			</div>
 		);
 	}
 }
 
-export default AddProject;
+export default AddTodoForm;

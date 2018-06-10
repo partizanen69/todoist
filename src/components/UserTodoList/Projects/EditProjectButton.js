@@ -33,7 +33,7 @@ class EditProjectButton extends React.Component {
 		this.setState({ menuActive: false });
 
 	render() {
-		const { projectId, editProjects } = this.props;
+		const { projectId } = this.props;
 		const { menuActive } = this.state;
 		return (
 			<span>

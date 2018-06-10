@@ -1,6 +1,6 @@
 import React from 'react';
 
-class EditProjectMenu extends React.Component {
+class EditTagMenu extends React.Component {
 
 	componentWillMount() {
 		document.addEventListener('mousedown', this.handleClick, false);
@@ -11,31 +11,31 @@ class EditProjectMenu extends React.Component {
 	}
 
 	handleClick = (e) => {
-		!this.editProjectMenu.contains(e.target) 
+		!this.editTagMenu.contains(e.target) 
 			&& this.props.cancel();
 	}
 
 	render() {
 		const { 
-			projectId, 
+			tagId, 
 			cancel, 
-			deleteProject,
-			editProject 
+			deleteTag,
+			editTag 
 		} = this.props;
 
 		return (
 			<div 
-				className="edit-project-menu"
-				ref={node => this.editProjectMenu = node}
+				className="edit-tag-menu"
+				ref={node => this.editTagMenu = node}
 			>
 
 				<div 
-					onClick={editProject.bind(null, projectId)}
+					onClick={editTag.bind(null, tagId)}
 				>
-					Edit project
+					Edit Tag
 				</div>
-				<div onClick={deleteProject.bind(null, projectId)}>
-					Delete project
+				<div onClick={deleteTag.bind(null, tagId)}>
+					Delete tag
 				</div>
 				<div onClick={cancel}>Cancel</div>
 			</div>
@@ -43,4 +43,4 @@ class EditProjectMenu extends React.Component {
 	}
 }
 
-export default EditProjectMenu;
+export default EditTagMenu;
