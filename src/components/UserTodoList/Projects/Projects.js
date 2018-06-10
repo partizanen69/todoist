@@ -22,7 +22,7 @@ class Projects extends React.Component {
 		this.setState({open: !open});
 	}
 
-	toggleAddProjForm = (e) => {
+	openAddProjForm = (e) => {
 		const { open } = this.state;
 		open && e.stopPropagation();
 		this.setState({openAddProjForm: true})
@@ -50,7 +50,7 @@ class Projects extends React.Component {
 					Projects
 					<span className="add-project-button">
 						<IoAndroidAdd 
-							onClick={this.toggleAddProjForm}
+							onClick={this.openAddProjForm}
 						/>
 					</span>
 	            </Panel.Title>
@@ -67,6 +67,13 @@ class Projects extends React.Component {
 							uid={uid}
 							userDatabase={userDatabase}
 						/>
+						<div 
+							className="add-project-link" 
+							onClick={this.openAddProjForm}
+						>
+							<span><IoAndroidAdd /></span>
+							Add project
+						</div>
 					</Panel.Body>
 				</Panel.Collapse>
 		            

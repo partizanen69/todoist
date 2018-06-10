@@ -41,6 +41,20 @@ export default styled.div`
 
 	.panel-body {
 		padding: 5px;
+
+		& .add-project-link {
+			color: #dd4b39;
+			padding: 6px 0px;
+
+			& span {
+				margin-right: 10px;
+			}
+		}
+
+		& .add-project-link:hover {
+			text-decoration: underline;
+			cursor: pointer;
+		}
 	}
 
 	
