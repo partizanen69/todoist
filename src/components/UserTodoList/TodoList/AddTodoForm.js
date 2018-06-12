@@ -16,12 +16,16 @@ class AddTodoForm extends React.Component {
 
 	render() {
 		const { addItemOpen } = this.state;
-		const { uid } = this.props;
+		const { uid, userDatabase } = this.props;
 
 		return (
 			<div>
 				{addItemOpen ? (
-					<TodoForm uid={uid} hideForm={this.hideForm} />
+					<TodoForm
+						uid={uid}
+						hideForm={this.hideForm}
+						userDatabase={userDatabase}
+					/>
 				) : (
 					<AddTodoButton showForm={this.showForm} />
 				)}

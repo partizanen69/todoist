@@ -1,7 +1,7 @@
 import React from 'react';
 
 import AddTodoForm from './AddTodoForm';
-import TodoItems from './TodoItems'; 
+import TodoItems from './TodoItems';
 import Styles from './Styles';
 
 class TodoList extends React.Component {
@@ -11,15 +11,20 @@ class TodoList extends React.Component {
 
 	render() {
 		const { uid, userDatabase } = this.props;
-		return <Styles> 
-			<div>
-				<AddTodoForm uid={uid} />
-				<TodoItems 
-					uid={uid}
-					userDatabase={userDatabase}
-				/>
-			</div>
-		</Styles>
+		return (
+			<Styles>
+				<div>
+					<AddTodoForm
+						uid={uid}
+						userDatabase={userDatabase}
+					/>
+					<TodoItems
+						uid={uid}
+						userDatabase={userDatabase}
+					/>
+				</div>
+			</Styles>
+		);
 	}
 }
 

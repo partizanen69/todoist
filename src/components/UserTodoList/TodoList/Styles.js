@@ -42,6 +42,7 @@ export default styled.div`
 			background-color: black;
 			color: white;
 			width: 100px;
+			opacity: 1;
 		}
 	}
 `;
