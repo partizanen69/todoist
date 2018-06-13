@@ -16,6 +16,7 @@ class TodoForm extends React.Component {
 		super();
 		this.state = {
 			inputValue: '',
+			showDownshift: false,
 		};
 	}
 
@@ -31,11 +32,15 @@ class TodoForm extends React.Component {
 
 	addProject = () => {
 		const { inputValue } = this.state;
-		!inputValue && this.setState({ inputValue: '#' });
+		!inputValue &&
+			this.setState({ inputValue: '#', showDownshift: true });
 
 		inputValue &&
 			inputValue !== '#' &&
-			this.setState({ inputValue: inputValue + ' #' });
+			this.setState({
+				inputValue: inputValue + ' #',
+				showDownshift: true,
+			});
 	};
 
 	onChangeHandler = e => {
@@ -45,10 +50,14 @@ class TodoForm extends React.Component {
 		this.isShowDownshift(e.target.value);
 	};
 
-	isShowDownshift(value) {}
+	isShowDownshift = val => {
+		this.setState({
+			showDownshift: /^#$/.test(val) || / #$/.test(val),
+		});
+	};
 
 	render() {
-		const { inputValue } = this.state;
+		const { inputValue, showDownshift } = this.state;
 		const { hideForm, userDatabase } = this.props;
 		return (
 			<form onSubmit={this.onSubmit}>
@@ -57,7 +66,9 @@ class TodoForm extends React.Component {
 					onChange={this.onChangeHandler}
 					placeholder="Enter you todo item"
 				/>
-				<Downshift />
+				{showDownshift && (
+					<Downshift userDatabase={userDatabase} />
+				)}
 				<div className="add-form-buttons">
 					<div>
 						<Button

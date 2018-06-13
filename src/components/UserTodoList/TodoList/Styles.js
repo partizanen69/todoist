@@ -45,4 +45,10 @@ export default styled.div`
 			opacity: 1;
 		}
 	}
+
+	.projects-downshift {
+		& .active {
+			background-color: grey;
+		}
+	}
 `;
