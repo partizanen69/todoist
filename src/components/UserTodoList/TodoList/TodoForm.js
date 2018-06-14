@@ -17,6 +17,9 @@ class TodoForm extends React.Component {
 		this.state = {
 			inputValue: '',
 			showDownshift: false,
+			project: '',
+			tags: [],
+			downshiftContent: '',
 		};
 	}
 
@@ -30,16 +33,39 @@ class TodoForm extends React.Component {
 			.push(inputValue);
 	};
 
-	addProject = () => {
+	addProj = () => {
 		const { inputValue } = this.state;
 		!inputValue &&
-			this.setState({ inputValue: '#', showDownshift: true });
+			this.setState({
+				inputValue: '#',
+				showDownshift: true,
+				downshiftContent: 'proj',
+			});
 
 		inputValue &&
 			inputValue !== '#' &&
 			this.setState({
 				inputValue: inputValue + ' #',
 				showDownshift: true,
+				downshiftContent: 'proj',
+			});
+	};
+
+	addTag = () => {
+		const { inputValue } = this.state;
+		!inputValue &&
+			this.setState({
+				inputValue: '@',
+				showDownshift: true,
+				downshiftContent: 'tag',
+			});
+
+		inputValue &&
+			inputValue !== '@' &&
+			this.setState({
+				inputValue: inputValue + ' @',
+				showDownshift: true,
+				downshiftContent: 'tag',
 			});
 	};
 
@@ -56,18 +82,39 @@ class TodoForm extends React.Component {
 		});
 	};
 
+	setProjTag = project => {
+		const { inputValue } = this.state;
+		this.setState({
+			project: project,
+			showDownshift: false,
+			inputValue: /^#$/.test(inputValue)
+				? ''
+				: / #$/.test(inputValue) && inputValue.slice(0, -2),
+		});
+	};
+
 	render() {
-		const { inputValue, showDownshift } = this.state;
+		const {
+			inputValue,
+			showDownshift,
+			project,
+			downshiftContent,
+		} = this.state;
 		const { hideForm, userDatabase } = this.props;
 		return (
 			<form onSubmit={this.onSubmit}>
+				{project && <div>{project}</div>}
 				<FormControl
 					value={inputValue}
 					onChange={this.onChangeHandler}
 					placeholder="Enter you todo item"
 				/>
 				{showDownshift && (
-					<Downshift userDatabase={userDatabase} />
+					<Downshift
+						userDatabase={userDatabase}
+						setProjTag={this.setProjTag}
+						downshiftContent={downshiftContent}
+					/>
 				)}
 				<div className="add-form-buttons">
 					<div>
@@ -80,10 +127,10 @@ class TodoForm extends React.Component {
 					</div>
 					<div>
 						<span data-desc={data[0]}>
-							<FaFileTextO onClick={this.addProject} />
+							<FaFileTextO onClick={this.addProj} />
 						</span>
 						<span data-desc={data[1]}>
-							<FaTags />
+							<FaTags onClick={this.addTag} />
 						</span>
 						<span data-desc={data[2]}>
 							<FaFlagO />

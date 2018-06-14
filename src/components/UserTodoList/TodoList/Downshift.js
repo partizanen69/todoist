@@ -5,16 +5,10 @@ class Downshift extends React.Component {
 		super();
 		this.state = {
 			projects: {},
+			tags: {},
 			active: 0,
+			content: '',
 		};
-	}
-
-	componentDidMount() {
-		document.addEventListener(
-			'keydown',
-			this.handleUpDownMove,
-			false
-		);
 	}
 
 	componentWillUnmount() {
@@ -25,8 +19,22 @@ class Downshift extends React.Component {
 		);
 	}
 
+	componentDidMount() {
+		document.addEventListener(
+			'keydown',
+			this.handleUpDownMove,
+			false
+		);
+	}
+
 	static getDerivedStateFromProps(props, state) {
-		return { projects: props.userDatabase.projects };
+		const { projects, tags } = props.userDatabase;
+		const { downshiftContent } = props;
+		return {
+			projects: projects,
+			tags: tags,
+			content: downshiftContent,
+		};
 	}
 
 	handleUpDownMove = e => {
@@ -43,13 +51,19 @@ class Downshift extends React.Component {
 				active: active === 0 ? prj.length - 1 : active - 1,
 			});
 		}
+
+		if (e.code === 'Enter') {
+			this.props.setProjTag(prj[active]);
+		}
 	};
 
 	render() {
-		const { projects, active } = this.state;
+		const { projects, tags, active, content } = this.state;
+		const cont =
+			content === 'proj' ? projects : content === 'tag' && tags;
 		return (
 			<div className="projects-downshift">
-				{Object.values(projects).map((item, key) => {
+				{Object.values(cont).map((item, key) => {
 					return (
 						<div
 							key={key}
