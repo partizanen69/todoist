@@ -6,7 +6,7 @@ import {
 	FaCommentO,
 	FaClose,
 } from 'react-icons/lib/fa/';
-import { FormGroup, FormControl, Button } from 'react-bootstrap';
+import { FormControl, Button } from 'react-bootstrap';
 
 import firebase from '../../../firebase/firebase';
 import 'react-tagsinput/react-tagsinput.css';
@@ -99,17 +99,14 @@ class TodoForm extends React.Component {
 		if (downshiftContent === 'tag') {
 			const tagArr = tags;
 			tagArr.push(value);
-			this.setState(
-				{
-					tags: tagArr,
-					showDownshift: false,
-					inputValue: /^@$/.test(inputValue)
-						? ''
-						: / @$/.test(inputValue) &&
-						  inputValue.slice(0, -2),
-				},
-				() => console.log('this.state.tags', this.state.tags)
-			);
+			this.setState({
+				tags: tagArr,
+				showDownshift: false,
+				inputValue: /^@$/.test(inputValue)
+					? ''
+					: / @$/.test(inputValue) &&
+					  inputValue.slice(0, -2),
+			});
 		}
 	};
 

@@ -5,10 +5,6 @@ import TodoItems from './TodoItems';
 import Styles from './Styles';
 
 class TodoList extends React.Component {
-	constructor() {
-		super();
-	}
-
 	render() {
 		const { uid, userDatabase } = this.props;
 		return (

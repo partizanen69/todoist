@@ -61,7 +61,7 @@ export default styled.div`
 		border-radius: 3px;
 		background-color: red;
 		display: inline-block;
-		margin-right: 5px;
+		margin: 0 5px 5px 0;
 		padding: 5px 10px;
 
 		& span {
@@ -79,7 +79,7 @@ export default styled.div`
 		border-radius: 3px;
 		background-color: green;
 		display: inline-block;
-		margin-right: 5px;
+		margin: 0 5px 5px 0;
 		padding: 5px 10px;
 
 		& span {

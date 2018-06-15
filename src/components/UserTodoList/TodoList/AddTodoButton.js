@@ -2,10 +2,6 @@ import React from 'react';
 import { IoAndroidAdd } from 'react-icons/lib/io/';
 
 class AddTodoButton extends React.Component {
-	constructor() {
-		super();
-	}
-
 	render() {
 		const { showForm } = this.props;
 		return (
