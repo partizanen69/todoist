@@ -38,8 +38,9 @@ class Downshift extends React.Component {
 	}
 
 	handleUpDownMove = e => {
-		const { active } = this.state;
+		const { active, content } = this.state;
 		const prj = Object.values(this.state.projects);
+		const tags = Object.values(this.state.tags);
 		if (e.code === 'ArrowDown') {
 			this.setState({
 				active: active === prj.length - 1 ? 0 : active + 1,
@@ -53,9 +54,22 @@ class Downshift extends React.Component {
 		}
 
 		if (e.code === 'Enter') {
-			this.props.setProjTag(prj[active]);
+			if (content === 'proj') {
+				this.props.setProjTag(prj[active]);
+			}
+
+			if (content === 'tag') {
+				this.props.setProjTag(tags[active]);
+			}
 		}
 	};
+
+	clickHandler(idx, e) {
+		const { content, projects, tags } = this.state;
+		const { setProjTag } = this.props;
+		content === 'proj' && setProjTag(projects[idx]);
+		content === 'tag' && setProjTag(tags[idx]);
+	}
 
 	render() {
 		const { projects, tags, active, content } = this.state;
@@ -63,13 +77,18 @@ class Downshift extends React.Component {
 			content === 'proj' ? projects : content === 'tag' && tags;
 		return (
 			<div className="projects-downshift">
-				{Object.values(cont).map((item, key) => {
+				{Object.values(cont).map((item, idx) => {
 					return (
 						<div
-							key={key}
-							className={
-								active === key ? 'active' : ''
-							}>
+							key={idx}
+							className={active === idx ? 'active' : ''}
+							onMouseOver={() =>
+								this.setState({ active: idx })
+							}
+							onClick={this.clickHandler.bind(
+								this,
+								idx
+							)}>
 							{item}
 						</div>
 					);

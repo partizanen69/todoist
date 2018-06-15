@@ -4,6 +4,7 @@ import {
 	FaFileTextO,
 	FaFlagO,
 	FaCommentO,
+	FaClose,
 } from 'react-icons/lib/fa/';
 import { FormGroup, FormControl, Button } from 'react-bootstrap';
 
@@ -18,7 +19,7 @@ class TodoForm extends React.Component {
 			inputValue: '',
 			showDownshift: false,
 			project: '',
-			tags: [],
+			tags: ['Tag 1'],
 			downshiftContent: '',
 		};
 	}
@@ -82,16 +83,40 @@ class TodoForm extends React.Component {
 		});
 	};
 
-	setProjTag = project => {
-		const { inputValue } = this.state;
-		this.setState({
-			project: project,
-			showDownshift: false,
-			inputValue: /^#$/.test(inputValue)
-				? ''
-				: / #$/.test(inputValue) && inputValue.slice(0, -2),
-		});
+	setProjTag = value => {
+		const { inputValue, downshiftContent, tags } = this.state;
+		if (downshiftContent === 'proj') {
+			this.setState({
+				project: value,
+				showDownshift: false,
+				inputValue: /^#$/.test(inputValue)
+					? ''
+					: / #$/.test(inputValue) &&
+					  inputValue.slice(0, -2),
+			});
+		}
+
+		if (downshiftContent === 'tag') {
+			const tagArr = tags;
+			tagArr.push(value);
+			this.setState(
+				{
+					tags: tagArr,
+					showDownshift: false,
+					inputValue: /^@$/.test(inputValue)
+						? ''
+						: / @$/.test(inputValue) &&
+						  inputValue.slice(0, -2),
+				},
+				() => console.log('this.state.tags', this.state.tags)
+			);
+		}
 	};
+
+	delTag(idx, e) {
+		this.state.tags.splice(idx, 1);
+		this.setState({ tags: this.state.tags });
+	}
 
 	render() {
 		const {
@@ -99,11 +124,37 @@ class TodoForm extends React.Component {
 			showDownshift,
 			project,
 			downshiftContent,
+			tags,
 		} = this.state;
 		const { hideForm, userDatabase } = this.props;
 		return (
 			<form onSubmit={this.onSubmit}>
-				{project && <div>{project}</div>}
+				{project && (
+					<div className="project">
+						{project}
+						<span>
+							<FaClose
+								onClick={() =>
+									this.setState({ project: '' })
+								}
+							/>
+						</span>
+					</div>
+				)}
+				{tags &&
+					tags.map((item, idx) => (
+						<div key={idx} className="tag">
+							{item}
+							<span>
+								<FaClose
+									onClick={this.delTag.bind(
+										this,
+										idx
+									)}
+								/>
+							</span>
+						</div>
+					))}
 				<FormControl
 					value={inputValue}
 					onChange={this.onChangeHandler}
