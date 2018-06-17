@@ -28,52 +28,46 @@ class Downshift extends React.Component {
 	}
 
 	static getDerivedStateFromProps(props, state) {
-		const { projects, tags } = props.userDatabase;
-		const { downshiftContent } = props;
+		const { filteredArray } = props;
 		return {
-			projects: Object.values(projects),
-			tags: Object.values(tags),
-			content: downshiftContent,
+			content: filteredArray,
 		};
 	}
 
 	handleUpDownMove = e => {
 		const { content, active, projects, tags } = this.state;
-		const { setProjTag } = this.props;
+		const { setProjTag, downshiftContent } = this.props;
 
 		e.code === 'ArrowDown' &&
 			this.setState({
 				active:
-					active === projects.length - 1 ? 0 : active + 1,
+					active === content.length - 1 ? 0 : active + 1,
 			});
 
 		e.code === 'ArrowUp' &&
 			this.setState({
 				active:
-					active === 0 ? projects.length - 1 : active - 1,
+					active === 0 ? content.length - 1 : active - 1,
 			});
 
 		if (e.code === 'Enter') {
-			content === 'proj' && setProjTag(projects[active]);
-			content === 'tag' && setProjTag(tags[active]);
+			setProjTag(content[active]);
 		}
 	};
 
 	clickHandler(idx, e) {
-		const { content, projects, tags } = this.state;
+		const { content } = this.state;
 		const { setProjTag } = this.props;
-
-		content === 'proj' && setProjTag(projects[idx]);
-		content === 'tag' && setProjTag(tags[idx]);
+		setProjTag(content[idx]);
 	}
 
 	render() {
 		const { projects, tags, active, content } = this.state;
-		const cont =
-			content === 'proj' ? projects : content === 'tag' && tags;
+		const { filterValue } = this.props;
+		const regExp = new RegExp(filterValue, 'gi');
 		return (
 			<div className="projects-downshift">
-				{cont.map((item, idx) => {
+				{content.map((item, idx) => {
 					return (
 						<div
 							key={idx}

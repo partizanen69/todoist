@@ -11,6 +11,7 @@ import { FormControl, Button } from 'react-bootstrap';
 import firebase from '../../../../firebase/firebase';
 import 'react-tagsinput/react-tagsinput.css';
 import Downshift from './todoForm/Downshift';
+import SettingsButtons from './todoForm/SettingsButtons';
 
 class TodoForm extends React.Component {
 	constructor() {
@@ -19,8 +20,10 @@ class TodoForm extends React.Component {
 			inputValue: '',
 			showDownshift: false,
 			project: '',
-			tags: ['Tag 1'],
+			tags: [],
 			downshiftContent: '',
+			filterValue: '',
+			filteredArray: [],
 		};
 	}
 
@@ -71,16 +74,50 @@ class TodoForm extends React.Component {
 	};
 
 	onChangeHandler = e => {
-		this.setState({
-			inputValue: e.target.value,
+		this.setState({ inputValue: e.target.value }, () => {
+			const { inputValue } = this.state;
+			this.isShowDownshift(inputValue);
 		});
-		this.isShowDownshift(e.target.value);
 	};
 
 	isShowDownshift = val => {
-		this.setState({
-			showDownshift: /^#$/.test(val) || / #$/.test(val),
-		});
+		let showProj = /^#/.test(val) || / #/.test(val);
+		let showTag = /^@/.test(val) || / @/.test(val);
+		let downshiftContent = showProj
+			? 'proj'
+			: showTag
+				? 'tag'
+				: '';
+		let filterValue =
+			/^#/.test(val) || /^@/.test(val) ? val.slice(1) : '';
+
+		this.setState(
+			{
+				showDownshift: showProj || showTag,
+				downshiftContent,
+				filterValue,
+			},
+			() => {
+				this.filter();
+			}
+		);
+	};
+
+	filter = () => {
+		console.log('this.props', this.props);
+		const { downshiftContent, filterValue } = this.state;
+		const { projects, tags } = this.props.userDatabase;
+		const arrayToFilter =
+			downshiftContent === 'proj'
+				? Object.values(projects)
+				: downshiftContent === 'tag'
+					? Object.values(tags)
+					: [];
+		const regExp = new RegExp(filterValue, 'gi');
+		const filteredArray = arrayToFilter.filter(item =>
+			regExp.test(item)
+		);
+		this.setState({ filteredArray });
 	};
 
 	setProjTag = value => {
@@ -89,10 +126,10 @@ class TodoForm extends React.Component {
 			this.setState({
 				project: value,
 				showDownshift: false,
-				inputValue: /^#$/.test(inputValue)
+				inputValue: /^#/.test(inputValue)
 					? ''
 					: / #$/.test(inputValue) &&
-					  inputValue.slice(0, -2),
+					  inputValue.slice(0, inputValue.search(/ #/)),
 			});
 		}
 
@@ -102,17 +139,18 @@ class TodoForm extends React.Component {
 			this.setState({
 				tags: tagArr,
 				showDownshift: false,
-				inputValue: /^@$/.test(inputValue)
+				inputValue: /^@/.test(inputValue)
 					? ''
 					: / @$/.test(inputValue) &&
-					  inputValue.slice(0, -2),
+					  inputValue.slice(0, inputValue.search(/ @/)),
 			});
 		}
 	};
 
 	delTag(idx, e) {
-		this.state.tags.splice(idx, 1);
-		this.setState({ tags: this.state.tags });
+		const { tags } = this.state;
+		tags.splice(idx, 1);
+		this.setState({ tags: tags });
 	}
 
 	render() {
@@ -122,6 +160,8 @@ class TodoForm extends React.Component {
 			project,
 			downshiftContent,
 			tags,
+			filterValue,
+			filteredArray,
 		} = this.state;
 		const { hideForm, userDatabase } = this.props;
 		return (
@@ -162,6 +202,8 @@ class TodoForm extends React.Component {
 						userDatabase={userDatabase}
 						setProjTag={this.setProjTag}
 						downshiftContent={downshiftContent}
+						filterValue={filterValue}
+						filteredArray={filteredArray}
 					/>
 				)}
 				<div className="add-form-buttons">
@@ -173,31 +215,14 @@ class TodoForm extends React.Component {
 						</Button>
 						<Button onClick={hideForm}>Cancel</Button>
 					</div>
-					<div>
-						<span data-desc={data[0]}>
-							<FaFileTextO onClick={this.addProj} />
-						</span>
-						<span data-desc={data[1]}>
-							<FaTags onClick={this.addTag} />
-						</span>
-						<span data-desc={data[2]}>
-							<FaFlagO />
-						</span>
-						<span data-desc={data[3]}>
-							<FaCommentO />
-						</span>
-					</div>
+					<SettingsButtons
+						addTag={this.addTag}
+						addProj={this.addProj}
+					/>
 				</div>
 			</form>
 		);
 	}
 }
-
-const data = [
-	'Project. Choose by typing #',
-	'Tag. Choose by typing @',
-	'Priority',
-	'Comment',
-];
 
 export default TodoForm;
