@@ -5,7 +5,7 @@ import { FaUser, FaUserPlus, FaListOl } from 'react-icons/lib/fa/';
 
 import * as routes from '../../constants/routes';
 import SignOutButton from './SignOutButton';
-import AuthUserContext from '../AuthUserContext';
+import AuthUserContext from '../../AuthUserContext';
 import Styles from './Styles';
 
 const Navigation = ({ authUser }) => (
@@ -19,7 +19,9 @@ const Navigation = ({ authUser }) => (
       </Navbar.Header>
       <Navbar.Collapse>
         <AuthUserContext.Consumer>
-          {authUser => (authUser ? <NavigationAuth /> : <NavigationNonAuth />)}
+          {authUser =>
+            authUser ? <NavigationAuth /> : <NavigationNonAuth />
+          }
         </AuthUserContext.Consumer>
       </Navbar.Collapse>
     </Navbar>
