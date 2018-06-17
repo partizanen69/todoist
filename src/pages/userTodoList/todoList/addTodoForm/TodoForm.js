@@ -1,11 +1,5 @@
 import React from 'react';
-import {
-	FaTags,
-	FaFileTextO,
-	FaFlagO,
-	FaCommentO,
-	FaClose,
-} from 'react-icons/lib/fa/';
+import { FaClose } from 'react-icons/lib/fa/';
 import { FormControl, Button } from 'react-bootstrap';
 
 import firebase from '../../../../firebase/firebase';
@@ -24,6 +18,7 @@ class TodoForm extends React.Component {
 			downshiftContent: '',
 			filterValue: '',
 			filteredArray: [],
+			priority: 'low',
 		};
 	}
 
@@ -40,37 +35,49 @@ class TodoForm extends React.Component {
 	addProj = () => {
 		const { inputValue } = this.state;
 		!inputValue &&
-			this.setState({
-				inputValue: '#',
-				showDownshift: true,
-				downshiftContent: 'proj',
-			});
+			this.setState(
+				{
+					inputValue: '#',
+				},
+				() => {
+					this.isShowDownshift(this.state.inputValue);
+				}
+			);
 
 		inputValue &&
 			inputValue !== '#' &&
-			this.setState({
-				inputValue: inputValue + ' #',
-				showDownshift: true,
-				downshiftContent: 'proj',
-			});
+			this.setState(
+				{
+					inputValue: inputValue + ' #',
+				},
+				() => {
+					this.isShowDownshift(this.state.inputValue);
+				}
+			);
 	};
 
 	addTag = () => {
 		const { inputValue } = this.state;
 		!inputValue &&
-			this.setState({
-				inputValue: '@',
-				showDownshift: true,
-				downshiftContent: 'tag',
-			});
+			this.setState(
+				{
+					inputValue: '@',
+				},
+				() => {
+					this.isShowDownshift(this.state.inputValue);
+				}
+			);
 
 		inputValue &&
 			inputValue !== '@' &&
-			this.setState({
-				inputValue: inputValue + ' @',
-				showDownshift: true,
-				downshiftContent: 'tag',
-			});
+			this.setState(
+				{
+					inputValue: inputValue + ' @',
+				},
+				() => {
+					this.isShowDownshift(this.state.inputValue);
+				}
+			);
 	};
 
 	onChangeHandler = e => {
@@ -89,7 +96,13 @@ class TodoForm extends React.Component {
 				? 'tag'
 				: '';
 		let filterValue =
-			/^#/.test(val) || /^@/.test(val) ? val.slice(1) : '';
+			/^#/.test(val) || /^@/.test(val)
+				? val.slice(1)
+				: / #/.test(val)
+					? val.slice(val.search(/ #/) + 2)
+					: / @/.test(val)
+						? val.slice(val.search(/ @/) + 2)
+						: '';
 
 		this.setState(
 			{
@@ -104,7 +117,6 @@ class TodoForm extends React.Component {
 	};
 
 	filter = () => {
-		console.log('this.props', this.props);
 		const { downshiftContent, filterValue } = this.state;
 		const { projects, tags } = this.props.userDatabase;
 		const arrayToFilter =
@@ -153,6 +165,10 @@ class TodoForm extends React.Component {
 		this.setState({ tags: tags });
 	}
 
+	setPriority = (val, e) => {
+		this.setState({ priority: val });
+	};
+
 	render() {
 		const {
 			inputValue,
@@ -162,6 +178,7 @@ class TodoForm extends React.Component {
 			tags,
 			filterValue,
 			filteredArray,
+			priority,
 		} = this.state;
 		const { hideForm, userDatabase } = this.props;
 		return (
@@ -218,6 +235,8 @@ class TodoForm extends React.Component {
 					<SettingsButtons
 						addTag={this.addTag}
 						addProj={this.addProj}
+						setPriority={this.setPriority}
+						priority={priority}
 					/>
 				</div>
 			</form>

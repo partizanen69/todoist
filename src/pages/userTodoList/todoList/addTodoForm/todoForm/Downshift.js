@@ -4,8 +4,6 @@ class Downshift extends React.Component {
 	constructor() {
 		super();
 		this.state = {
-			projects: {},
-			tags: {},
 			active: 0,
 			content: '',
 		};
@@ -35,8 +33,8 @@ class Downshift extends React.Component {
 	}
 
 	handleUpDownMove = e => {
-		const { content, active, projects, tags } = this.state;
-		const { setProjTag, downshiftContent } = this.props;
+		const { content, active } = this.state;
+		const { setProjTag } = this.props;
 
 		e.code === 'ArrowDown' &&
 			this.setState({
@@ -62,9 +60,7 @@ class Downshift extends React.Component {
 	}
 
 	render() {
-		const { projects, tags, active, content } = this.state;
-		const { filterValue } = this.props;
-		const regExp = new RegExp(filterValue, 'gi');
+		const { active, content } = this.state;
 		return (
 			<div className="projects-downshift">
 				{content.map((item, idx) => {

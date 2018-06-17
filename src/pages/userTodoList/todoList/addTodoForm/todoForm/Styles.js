@@ -1,0 +1,83 @@
+import styled from 'styled-components';
+
+export default styled.div`
+	.settings-buttons {
+		& span {
+			position: relative;
+			margin: 0 10px;
+			font-size: 16px;
+			cursor: pointer;
+
+			& .priority-menu {
+				position: absolute;
+				z-index: 1;
+				opacity: 1;
+				border-radius: 3px;
+				box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.4);
+				background-color: #fff;
+				width: 170px;
+				padding: 5px;
+
+				& span:nth-child(2) {
+					color: yellow;
+				}
+
+				& span:nth-child(3) {
+					color: orange;
+				}
+
+				& span:nth-child(4) {
+					color: red;
+				}
+
+				& span:hover {
+					opacity: 1;
+				}
+
+				& span[data-desc]:hover::after {
+					content: attr(data-desc);
+					position: absolute;
+					font-size: 12px;
+					padding: 5px;
+					left: -60px;
+					top: 24px;
+					border-radius: 3px;
+					background-color: black;
+					color: white;
+					width: 100px;
+					opacity: 1;
+				}
+			}
+		}
+
+		& span:hover {
+			opacity: 0.5;
+		}
+
+		& span[data-desc]:hover::after {
+			content: attr(data-desc);
+			position: absolute;
+			font-size: 12px;
+			padding: 5px;
+			left: -60px;
+			top: 24px;
+			border-radius: 3px;
+			background-color: black;
+			color: white;
+			width: 100px;
+			opacity: 1;
+		}
+
+		.moderate {
+			color: yellow;
+		}
+
+		.high {
+			color: orange;
+		}
+
+		.very-high {
+			color: red;
+		}
+	}
+`;
