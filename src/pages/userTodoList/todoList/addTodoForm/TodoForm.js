@@ -19,6 +19,7 @@ class TodoForm extends React.Component {
 			filterValue: '',
 			filteredArray: [],
 			priority: 'low',
+			comment: '',
 		};
 	}
 
@@ -169,6 +170,10 @@ class TodoForm extends React.Component {
 		this.setState({ priority: val });
 	};
 
+	setComment = (val, e) => {
+		this.setState({ comment: val });
+	};
+
 	render() {
 		const {
 			inputValue,
@@ -237,6 +242,7 @@ class TodoForm extends React.Component {
 						addProj={this.addProj}
 						setPriority={this.setPriority}
 						priority={priority}
+						setComment={this.setComment}
 					/>
 				</div>
 			</form>

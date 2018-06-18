@@ -2,7 +2,7 @@ import styled from 'styled-components';
 
 export default styled.div`
 	.settings-buttons {
-		& span {
+		& > span {
 			position: relative;
 			margin: 0 10px;
 			font-size: 16px;
@@ -17,6 +17,12 @@ export default styled.div`
 				background-color: #fff;
 				width: 170px;
 				padding: 5px;
+				display: flex;
+				justify-content: space-around;
+
+				& span:nth-child(1) {
+					color: black;
+				}
 
 				& span:nth-child(2) {
 					color: yellow;
@@ -48,13 +54,41 @@ export default styled.div`
 					opacity: 1;
 				}
 			}
+
+			& .comment-form {
+				position: absolute;
+				z-index: 1;
+				background-color: #fff;
+				box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.4);
+				border-radius: 3px;
+				padding: 5px;
+				cursor: auto;
+
+				& p {
+					float: left;
+				}
+
+				& span {
+					float: right;
+					cursor: pointer;
+				}
+
+				& textarea {
+					padding: 5px;
+					border-radius: 3px;
+				}
+			}
+
+			& .comment-form:hover {
+				opacity: 1;
+			}
 		}
 
-		& span:hover {
+		& > span:hover {
 			opacity: 0.5;
 		}
 
-		& span[data-desc]:hover::after {
+		& > span[data-desc]:hover::after {
 			content: attr(data-desc);
 			position: absolute;
 			font-size: 12px;

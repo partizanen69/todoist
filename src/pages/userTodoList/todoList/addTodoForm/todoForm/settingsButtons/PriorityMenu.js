@@ -31,9 +31,7 @@ class PriorityMenu extends React.Component {
 				ref={node => (this.priorityMenu = node)}
 				className="priority-menu">
 				<span data-desc={data[0]}>
-					<FaFlagO
-						onClick={setPriority.bind(null, 'low')}
-					/>
+					<FaFlag onClick={setPriority.bind(null, 'low')} />
 				</span>
 				<span data-desc={data[1]}>
 					<FaFlag

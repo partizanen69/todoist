@@ -3,17 +3,21 @@ import {
 	FaTags,
 	FaFileTextO,
 	FaFlag,
-	FaCommentO,
+	FaComment,
 } from 'react-icons/lib/fa/';
 
 import Styles from './Styles';
 import PriorityMenu from './settingsButtons/PriorityMenu';
+import CommentForm from './settingsButtons/CommentForm';
 
 class SettingsButtons extends React.Component {
 	constructor() {
 		super();
 		this.state = {
 			showPriorityMenu: false,
+			showCommentForm: false,
+			commentColor: '',
+			comment: '',
 		};
 	}
 
@@ -25,9 +29,29 @@ class SettingsButtons extends React.Component {
 		this.setState({ showPriorityMenu: false });
 	};
 
+	showCommentForm = () => {
+		this.setState({ showCommentForm: true });
+	};
+
+	hideCommentForm = (val, e) => {
+		const { setComment } = this.props;
+		this.setState({
+			showCommentForm: false,
+			commentColor: val ? 'very-high' : '',
+			comment: val,
+		});
+		setComment.bind(null, val);
+		setComment(val);
+	};
+
 	render() {
 		const { addProj, addTag, setPriority, priority } = this.props;
-		const { showPriorityMenu } = this.state;
+		const {
+			showPriorityMenu,
+			showCommentForm,
+			commentColor,
+			comment,
+		} = this.state;
 		const flagColor =
 			priority == 'moderate'
 				? 'moderate'
@@ -54,8 +78,16 @@ class SettingsButtons extends React.Component {
 							/>
 						)}
 					</span>
-					<span data-desc={data[3]}>
-						<FaCommentO />
+					<span
+						data-desc={data[3]}
+						className={commentColor}>
+						<FaComment onClick={this.showCommentForm} />
+						{showCommentForm && (
+							<CommentForm
+								hide={this.hideCommentForm}
+								comment={comment}
+							/>
+						)}
 					</span>
 				</div>
 			</Styles>
