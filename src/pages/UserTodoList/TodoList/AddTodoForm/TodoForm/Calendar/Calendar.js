@@ -1,25 +1,15 @@
-import InfiniteCalendar from 'react-infinite-calendar';
-import 'react-infinite-calendar/styles.css';
+import React from 'react';
+import Calendar from 'react-calendar';
+import Styles from './Styles';
 
-class Calendar extends React.Component {
+class Calendarr extends React.Component {
 	render() {
-		const today = new Date();
-		const lastWeek = new Date(
-			today.getFullYear(),
-			today.getMonth(),
-			today.getDate() - 7
-		);
 		return (
-			<InfiniteCalendar
-				width={400}
-				height={600}
-				selected={today}
-				disabledDays={[0, 6]}
-				minDate={lastWeek}
-				onSelect={e => console.log('e', e)}
-			/>
+			<Styles>
+				<Calendar />
+			</Styles>
 		);
 	}
 }
 
-export default Calendar;
+export default Calendarr;

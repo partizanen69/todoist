@@ -1,11 +1,13 @@
 import React from 'react';
-import { FaClose } from 'react-icons/lib/fa/';
-import { FormControl, Button } from 'react-bootstrap';
+import { FaClose, FaCalendar } from 'react-icons/lib/fa/';
+import { FormControl, Button, Row, Col } from 'react-bootstrap';
 
 import firebase from '../../../../../firebase/firebase';
 import 'react-tagsinput/react-tagsinput.css';
 import Downshift from './Downshift/Downshift';
 import SettingsButtons from './SettingsButtons/SettingsButtons';
+import Calendarr from './Calendar/Calendar';
+import Styles from './Styles';
 
 class TodoForm extends React.Component {
 	constructor() {
@@ -20,6 +22,7 @@ class TodoForm extends React.Component {
 			filteredArray: [],
 			priority: 'low',
 			comment: '',
+			showCalendar: false,
 		};
 	}
 
@@ -174,6 +177,10 @@ class TodoForm extends React.Component {
 		this.setState({ comment: val });
 	};
 
+	showCalendar = () => {
+		this.setState({ showCalendar: true });
+	};
+
 	render() {
 		const {
 			inputValue,
@@ -184,73 +191,79 @@ class TodoForm extends React.Component {
 			filterValue,
 			filteredArray,
 			priority,
+			showCalendar,
 		} = this.state;
 		const { hideForm, userDatabase } = this.props;
 		return (
-			<form onSubmit={this.onSubmit}>
-				{project && (
-					<div className="project">
-						{project}
-						<span>
-							<FaClose
-								onClick={() =>
-									this.setState({ project: '' })
-								}
-							/>
-						</span>
-					</div>
-				)}
-				{tags &&
-					tags.map((item, idx) => (
-						<div key={idx} className="tag">
-							{item}
+			<Styles>
+				<form onSubmit={this.onSubmit}>
+					{project && (
+						<div className="project">
+							{project}
 							<span>
 								<FaClose
-									onClick={this.delTag.bind(
-										this,
-										idx
-									)}
+									onClick={() =>
+										this.setState({ project: '' })
+									}
 								/>
 							</span>
 						</div>
-					))}
+					)}
+					{tags &&
+						tags.map((item, idx) => (
+							<div key={idx} className="tag">
+								{item}
+								<span>
+									<FaClose
+										onClick={this.delTag.bind(
+											this,
+											idx
+										)}
+									/>
+								</span>
+							</div>
+						))}
 
-				<div>
-					<FormControl
-						value={inputValue}
-						onChange={this.onChangeHandler}
-						placeholder="Enter you todo item"
-					/>
-					<div>Date</div>
-				</div>
-
-				{showDownshift && (
-					<Downshift
-						userDatabase={userDatabase}
-						setProjTag={this.setProjTag}
-						downshiftContent={downshiftContent}
-						filterValue={filterValue}
-						filteredArray={filteredArray}
-					/>
-				)}
-				<div className="add-form-buttons">
-					<div>
-						<Button
-							type="submit"
-							disabled={inputValue === ''}>
-							Add todo item
-						</Button>
-						<Button onClick={hideForm}>Cancel</Button>
+					<div className="todo-input">
+						<FormControl
+							value={inputValue}
+							onChange={this.onChangeHandler}
+							placeholder="Enter you todo item"
+						/>
+						<span>
+							<FaCalendar onClick={this.showCalendar} />
+							{showCalendar && <Calendarr />}
+						</span>
 					</div>
-					<SettingsButtons
-						addTag={this.addTag}
-						addProj={this.addProj}
-						setPriority={this.setPriority}
-						priority={priority}
-						setComment={this.setComment}
-					/>
-				</div>
-			</form>
+
+					{showDownshift && (
+						<Downshift
+							userDatabase={userDatabase}
+							setProjTag={this.setProjTag}
+							downshiftContent={downshiftContent}
+							filterValue={filterValue}
+							filteredArray={filteredArray}
+						/>
+					)}
+					<div className="add-form-buttons">
+						<div>
+							<Button
+								type="submit"
+								disabled={inputValue === ''}>
+								Add todo item
+							</Button>
+							<Button onClick={hideForm}>Cancel</Button>
+						</div>
+						<SettingsButtons
+							addTag={this.addTag}
+							addProj={this.addProj}
+							setPriority={this.setPriority}
+							priority={priority}
+							setComment={this.setComment}
+						/>
+					</div>
+				</form>
+			</Styles>
 		);
 	}
 }
