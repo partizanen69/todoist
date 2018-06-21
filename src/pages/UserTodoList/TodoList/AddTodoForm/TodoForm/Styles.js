@@ -49,10 +49,6 @@ export default styled.div`
 			cursor: pointer;
 		}
 
-		& > span:hover {
-			opacity: 0.7;
-		}
-
 		& input {
 		}
 	}

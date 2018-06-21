@@ -6,7 +6,10 @@ class Calendarr extends React.Component {
 	render() {
 		return (
 			<Styles>
-				<Calendar />
+				<div className="wrapper">
+					<span>Choose todo item due date</span>
+					<Calendar />
+				</div>
 			</Styles>
 		);
 	}
