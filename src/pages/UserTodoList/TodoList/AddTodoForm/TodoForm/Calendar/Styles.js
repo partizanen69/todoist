@@ -13,9 +13,18 @@ export default styled.div`
 		box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.4);
 		border-radius: 3px;
 
-		& > span {
-			font-size: 14px;
-			padding-left: 10px;
+		& .cal-header {
+			display: flex;
+			justify-content: space-between;
+			padding: 5px 10px 5px 10px;
+
+			& > span {
+				font-size: 14px;
+			}
+
+			& > span:nth-child(1) {
+				cursor auto;
+			}
 		}
 
 		.react-calendar {

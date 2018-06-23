@@ -1,5 +1,7 @@
 import React from 'react';
 
+import Styles from './Styles';
+
 class Downshift extends React.Component {
 	constructor() {
 		super();
@@ -62,7 +64,7 @@ class Downshift extends React.Component {
 	render() {
 		const { active, content } = this.state;
 		return (
-			<div className="projects-downshift">
+			<Styles>
 				{content.map((item, idx) => {
 					return (
 						<div
@@ -79,7 +81,7 @@ class Downshift extends React.Component {
 						</div>
 					);
 				})}
-			</div>
+			</Styles>
 		);
 	}
 }

@@ -16,8 +16,6 @@ class SettingsButtons extends React.Component {
 		this.state = {
 			showPriorityMenu: false,
 			showCommentForm: false,
-			commentColor: '',
-			comment: '',
 		};
 	}
 
@@ -33,25 +31,23 @@ class SettingsButtons extends React.Component {
 		this.setState({ showCommentForm: true });
 	};
 
-	hideCommentForm = (val, e) => {
-		const { setComment } = this.props;
+	hideCommentForm = e => {
+		const { setComment, comment } = this.props;
 		this.setState({
 			showCommentForm: false,
-			commentColor: val ? 'very-high' : '',
-			comment: val,
 		});
-		setComment.bind(null, val);
-		setComment(val);
 	};
 
 	render() {
-		const { addProj, addTag, setPriority, priority } = this.props;
 		const {
-			showPriorityMenu,
-			showCommentForm,
-			commentColor,
+			addProj,
+			addTag,
+			setPriority,
+			priority,
+			setComment,
 			comment,
-		} = this.state;
+		} = this.props;
+		const { showPriorityMenu, showCommentForm } = this.state;
 		const flagColor =
 			priority == 'moderate'
 				? 'moderate'
@@ -80,12 +76,13 @@ class SettingsButtons extends React.Component {
 					</span>
 					<span
 						data-desc={data[3]}
-						className={commentColor}>
+						className={comment ? 'very-high' : ''}>
 						<FaComment onClick={this.showCommentForm} />
 						{showCommentForm && (
 							<CommentForm
 								hide={this.hideCommentForm}
-								comment={comment}
+								comment={this.props.comment}
+								setComment={setComment}
 							/>
 						)}
 					</span>

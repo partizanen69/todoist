@@ -23,17 +23,48 @@ class TodoForm extends React.Component {
 			priority: 'low',
 			comment: '',
 			showCalendar: false,
+			pickedDate: '',
 		};
 	}
 
 	onSubmit = e => {
 		e.preventDefault();
-		const { inputValue } = this.state;
+		const {
+			inputValue,
+			project,
+			tags,
+			priority,
+			comment,
+			pickedDate,
+		} = this.state;
 		const { uid } = this.props;
+		const dataToSubmit = {
+			toDoText: inputValue,
+			project: project ? project : 'Tasks',
+			tags: tags ? tags : ['Unalocated'],
+			priority,
+			comment,
+			date: pickedDate
+				? pickedDate.getTime()
+				: new Date().getTime(),
+		};
 		firebase
 			.database()
 			.ref('users/' + uid + '/todoList')
-			.push(inputValue);
+			.push(dataToSubmit);
+		this.setState({
+			inputValue: '',
+			showDownshift: false,
+			project: '',
+			tags: [],
+			downshiftContent: '',
+			filterValue: '',
+			filteredArray: [],
+			priority: 'low',
+			comment: '',
+			showCalendar: false,
+			pickedDate: '',
+		});
 	};
 
 	addProj = () => {
@@ -175,10 +206,21 @@ class TodoForm extends React.Component {
 
 	setComment = (val, e) => {
 		this.setState({ comment: val });
+		console.log('val', val);
 	};
 
 	showCalendar = () => {
 		this.setState({ showCalendar: true });
+	};
+
+	hideCalendar = () => {
+		this.setState({ showCalendar: false });
+	};
+
+	pickDate = (date, e) => {
+		this.setState({ pickedDate: date }, () => {
+			console.log(this.state.pickedDate);
+		});
 	};
 
 	render() {
@@ -192,6 +234,8 @@ class TodoForm extends React.Component {
 			filteredArray,
 			priority,
 			showCalendar,
+			pickedDate,
+			comment,
 		} = this.state;
 		const { hideForm, userDatabase } = this.props;
 		return (
@@ -230,21 +274,35 @@ class TodoForm extends React.Component {
 							onChange={this.onChangeHandler}
 							placeholder="Enter you todo item"
 						/>
-						<span>
+						<span
+							className={
+								pickedDate ? 'date-picked' : ''
+							}>
 							<FaCalendar onClick={this.showCalendar} />
-							{showCalendar && <Calendarr />}
+							{showCalendar && (
+								<Calendarr
+									hideCalendar={this.hideCalendar}
+									pickDate={this.pickDate}
+									value={
+										pickedDate
+											? pickedDate
+											: new Date()
+									}
+								/>
+							)}
 						</span>
+
+						{showDownshift && (
+							<Downshift
+								userDatabase={userDatabase}
+								setProjTag={this.setProjTag}
+								downshiftContent={downshiftContent}
+								filterValue={filterValue}
+								filteredArray={filteredArray}
+							/>
+						)}
 					</div>
 
-					{showDownshift && (
-						<Downshift
-							userDatabase={userDatabase}
-							setProjTag={this.setProjTag}
-							downshiftContent={downshiftContent}
-							filterValue={filterValue}
-							filteredArray={filteredArray}
-						/>
-					)}
 					<div className="add-form-buttons">
 						<div>
 							<Button
@@ -260,6 +318,7 @@ class TodoForm extends React.Component {
 							setPriority={this.setPriority}
 							priority={priority}
 							setComment={this.setComment}
+							comment={comment}
 						/>
 					</div>
 				</form>

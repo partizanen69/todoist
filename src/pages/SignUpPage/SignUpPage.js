@@ -10,6 +10,10 @@ import Styles from './Styles';
 const SignUpPage = ({ history }) => (
 	<Styles>
 		<div className="wrapper">
+			<span>
+				To test the application you can use the following
+				user: login - alexey_ablitsov@mail.ru pass - 111111
+			</span>
 			<div>
 				<h1>Sign Up</h1>
 				<SignUpForm history={history} />

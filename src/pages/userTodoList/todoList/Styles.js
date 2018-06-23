@@ -20,14 +20,4 @@ export default styled.div`
 		justify-content: space-between;
 		margin-top: 10px;
 	}
-
-	.projects-downshift {
-		& .active {
-			background-color: grey;
-		}
-
-		& div {
-			cursor: pointer;
-		}
-	}
 `;

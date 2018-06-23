@@ -24,31 +24,23 @@ class CommentForm extends React.Component {
 
 	handleClick = e => {
 		const { textAreaValue } = this.state;
-		this.props.hide.bind(null, textAreaValue);
-		!this.commentForm.contains(e.target) &&
-			this.props.hide(textAreaValue);
+		!this.commentForm.contains(e.target) && this.props.hide();
 	};
 
 	render() {
 		const { textAreaValue } = this.state;
-		const { hide, comment } = this.props;
+		const { hide, comment, setComment } = this.props;
 		return (
 			<div
 				className="comment-form"
 				ref={node => (this.commentForm = node)}>
 				<p>Quick comment:</p>
 				<span>
-					<FaClose
-						onClick={hide.bind(null, textAreaValue)}
-					/>
+					<FaClose onClick={hide} />
 				</span>
 				<textarea
-					onChange={e =>
-						this.setState({
-							textAreaValue: e.target.value,
-						})
-					}
-					value={textAreaValue}
+					onChange={e => setComment(e.target.value)}
+					value={comment}
 				/>
 			</div>
 		);

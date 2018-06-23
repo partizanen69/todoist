@@ -49,6 +49,10 @@ export default styled.div`
 			cursor: pointer;
 		}
 
+		.date-picked {
+			color: green;
+		}
+
 		& input {
 		}
 	}
