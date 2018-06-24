@@ -23,16 +23,21 @@ class CompleteButton extends React.Component {
 						? 'yellow'
 						: '';
 		return (
-			<Styles
-				onMouseEnter={() => this.setState({ hover: true })}
-				onMouseLeave={() => this.setState({ hover: false })}
-				priorityColor={priorityColor}>
-				{hover ? <FaCheckCircleO /> : <FaCircleO />}
-				{hover && (
-					<div>
-						{priority} priority<div />
-					</div>
-				)}
+			<Styles priorityColor={priorityColor}>
+				<span
+					onMouseEnter={() =>
+						this.setState({ hover: true })
+					}
+					onMouseLeave={() =>
+						this.setState({ hover: false })
+					}>
+					{hover ? <FaCheckCircleO /> : <FaCircleO />}
+					{hover && (
+						<div>
+							{priority} priority<div />
+						</div>
+					)}
+				</span>
 			</Styles>
 		);
 	}

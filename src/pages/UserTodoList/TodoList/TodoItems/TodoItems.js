@@ -1,9 +1,13 @@
 import React from 'react';
+import { Row, Col } from 'react-bootstrap';
 
 import firebase from '../../../../firebase/firebase';
 import Styles from './Styles';
 import CompleteButton from './CompleteButton/CompleteButton';
 import TodoItemText from './TodoItemText/TodoItemText';
+import TodoItemDate from './TodoItemDate/TodoItemDate';
+import TodoItemTags from './TodoItemTags/TodoItemTags';
+import TodoItemComment from './TodoItemComment/TodoItemComment';
 
 class TodoItems extends React.Component {
 	constructor() {
@@ -54,19 +58,23 @@ class TodoItems extends React.Component {
 											<TodoItemText
 												text={toDoText}
 											/>
-											<p>{tags}</p>
-											<p>{comment}</p>
+											<TodoItemTags
+												tags={tags}
+											/>
+											<TodoItemComment
+												comment={comment}
+											/>
 										</div>
 										<div>{project}</div>
-										<div>{date}</div>
+										<TodoItemDate date={date} />
 									</div>
-									<div
+									<button
 										onClick={this.delItem.bind(
 											null,
 											key
 										)}>
 										Delete
-									</div>
+									</button>
 								</div>
 							);
 						}
