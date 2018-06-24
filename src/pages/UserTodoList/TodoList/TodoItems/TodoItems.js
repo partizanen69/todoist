@@ -1,6 +1,5 @@
 import React from 'react';
 import { Row, Col, Button } from 'react-bootstrap';
-import { MdDeleteForever, MdDone } from 'react-icons/lib/md/';
 
 import firebase from '../../../../firebase/firebase';
 import Styles from './Styles';
@@ -11,6 +10,7 @@ import TodoItemTags from './TodoItemTags/TodoItemTags';
 import TodoItemComment from './TodoItemComment/TodoItemComment';
 import TodoItemProject from './TodoItemProject/TodoItemProject';
 import DelTodoItem from './DelTodoItem/DelTodoItem';
+import CompleteItem from './CompleteItem/CompleteItem';
 
 class TodoItems extends React.Component {
 	constructor() {
@@ -71,9 +71,10 @@ class TodoItems extends React.Component {
 											fireBaseKey={key}
 											uid={uid}
 										/>
-										<div className="button">
-											<MdDone />complete
-										</div>
+										<CompleteItem
+											fireBaseKey={key}
+											uid={uid}
+										/>
 									</div>
 								</div>
 							);
