@@ -10,6 +10,7 @@ import TodoItemDate from './TodoItemDate/TodoItemDate';
 import TodoItemTags from './TodoItemTags/TodoItemTags';
 import TodoItemComment from './TodoItemComment/TodoItemComment';
 import TodoItemProject from './TodoItemProject/TodoItemProject';
+import DelTodoItem from './DelTodoItem/DelTodoItem';
 
 class TodoItems extends React.Component {
 	constructor() {
@@ -24,14 +25,6 @@ class TodoItems extends React.Component {
 		let a = todoList ? Object.entries(todoList) : '';
 		return { todoList: a };
 	}
-
-	delItem = key => {
-		const { uid } = this.props;
-		firebase
-			.database()
-			.ref('users/' + uid + '/todoList/' + key)
-			.remove();
-	};
 
 	render() {
 		const { todoList } = this.state;
@@ -49,6 +42,7 @@ class TodoItems extends React.Component {
 								priority,
 								comment,
 								date,
+								completed,
 							},
 						]) => {
 							return (
@@ -59,6 +53,7 @@ class TodoItems extends React.Component {
 									<div>
 										<TodoItemText
 											text={toDoText}
+											completed={completed}
 										/>
 										<TodoItemTags tags={tags} />
 										<TodoItemComment
@@ -72,14 +67,10 @@ class TodoItems extends React.Component {
 									</div>
 									<div>
 										<TodoItemDate date={date} />
-										<div
-											className="button"
-											onClick={this.delItem.bind(
-												null,
-												key
-											)}>
-											<MdDeleteForever />delete
-										</div>
+										<DelTodoItem
+											fireBaseKey={key}
+											uid={uid}
+										/>
 										<div className="button">
 											<MdDone />complete
 										</div>

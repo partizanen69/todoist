@@ -4,8 +4,8 @@ import Styles from './Styles';
 
 class TodoItemText extends React.Component {
 	render() {
-		const { text } = this.props;
-		return <Styles>{text}</Styles>;
+		const { text, completed } = this.props;
+		return <Styles completed={completed}>{text}</Styles>;
 	}
 }
 
