@@ -13,7 +13,7 @@ class TodoItemTags extends React.Component {
 			<Styles>
 				{tags.map((tag, key) => {
 					return (
-						<span>
+						<span key={key}>
 							<FaTags />
 							{tag}
 						</span>

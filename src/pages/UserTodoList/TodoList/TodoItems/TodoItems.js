@@ -1,5 +1,6 @@
 import React from 'react';
-import { Row, Col } from 'react-bootstrap';
+import { Row, Col, Button } from 'react-bootstrap';
+import { MdDeleteForever, MdDone } from 'react-icons/lib/md/';
 
 import firebase from '../../../../firebase/firebase';
 import Styles from './Styles';
@@ -8,6 +9,7 @@ import TodoItemText from './TodoItemText/TodoItemText';
 import TodoItemDate from './TodoItemDate/TodoItemDate';
 import TodoItemTags from './TodoItemTags/TodoItemTags';
 import TodoItemComment from './TodoItemComment/TodoItemComment';
+import TodoItemProject from './TodoItemProject/TodoItemProject';
 
 class TodoItems extends React.Component {
 	constructor() {
@@ -33,6 +35,7 @@ class TodoItems extends React.Component {
 
 	render() {
 		const { todoList } = this.state;
+		const { uid } = this.props;
 		return (
 			<Styles>
 				{todoList &&
@@ -49,32 +52,38 @@ class TodoItems extends React.Component {
 							},
 						]) => {
 							return (
-								<div key={key}>
-									<div className="todo-item">
-										<CompleteButton
-											priority={priority}
+								<div key={key} className="todo-item">
+									<CompleteButton
+										priority={priority}
+									/>
+									<div>
+										<TodoItemText
+											text={toDoText}
 										/>
-										<div>
-											<TodoItemText
-												text={toDoText}
-											/>
-											<TodoItemTags
-												tags={tags}
-											/>
-											<TodoItemComment
-												comment={comment}
-											/>
-										</div>
-										<div>{project}</div>
-										<TodoItemDate date={date} />
+										<TodoItemTags tags={tags} />
+										<TodoItemComment
+											comment={comment}
+											uid={uid}
+											fireBaseKey={key}
+										/>
+										<TodoItemProject
+											project={project}
+										/>
 									</div>
-									<button
-										onClick={this.delItem.bind(
-											null,
-											key
-										)}>
-										Delete
-									</button>
+									<div>
+										<TodoItemDate date={date} />
+										<div
+											className="button"
+											onClick={this.delItem.bind(
+												null,
+												key
+											)}>
+											<MdDeleteForever />delete
+										</div>
+										<div className="button">
+											<MdDone />complete
+										</div>
+									</div>
 								</div>
 							);
 						}

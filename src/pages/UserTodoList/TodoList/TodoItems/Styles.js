@@ -15,16 +15,36 @@ export default styled.div`
 		}
 
 		& > div:nth-child(2) {
-			width: 70%;
+			width: 80%;
 			padding-left: 5px;
 		}
 
 		& > div:nth-child(3) {
-			width: 15%;
-		}
+			width: 20%;
+			display: flex;
+			flex-direction: column;
+			align-items: flex-end;
 
-		& > div:nth-child(4) {
-			width: 15%;
+			& > div {
+				margin-bottom: 3px;
+			}
+
+			& .button {
+				background-color: #333;
+				color: #fff;
+				border-radius: 3px;
+				padding: 2px 5px;
+			}
+
+			& .button:hover {
+				cursor: pointer;
+				opacity: 0.7;
+			}
+
+			& .button:active {
+				position: relative;
+				top: 1px;
+			}
 		}
 	}
 `;
