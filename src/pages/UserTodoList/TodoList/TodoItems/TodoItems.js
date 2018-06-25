@@ -49,6 +49,7 @@ class TodoItems extends React.Component {
 								<div key={key} className="todo-item">
 									<CompleteButton
 										priority={priority}
+										completed={completed}
 									/>
 									<div>
 										<TodoItemText
@@ -74,6 +75,7 @@ class TodoItems extends React.Component {
 										<CompleteItem
 											fireBaseKey={key}
 											uid={uid}
+											completed={completed}
 										/>
 									</div>
 								</div>

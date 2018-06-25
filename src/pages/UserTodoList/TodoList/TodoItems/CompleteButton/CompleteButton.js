@@ -12,7 +12,7 @@ class CompleteButton extends React.Component {
 	}
 
 	render() {
-		const { priority } = this.props;
+		const { priority, completed } = this.props;
 		const { hover } = this.state;
 		const priorityColor =
 			priority === 'very high'
@@ -31,7 +31,13 @@ class CompleteButton extends React.Component {
 					onMouseLeave={() =>
 						this.setState({ hover: false })
 					}>
-					{hover ? <FaCheckCircleO /> : <FaCircleO />}
+					{completed ? (
+						<FaCheckCircleO />
+					) : hover ? (
+						<FaCheckCircleO />
+					) : (
+						<FaCircleO />
+					)}
 					{hover && (
 						<div>
 							{priority} priority<div />

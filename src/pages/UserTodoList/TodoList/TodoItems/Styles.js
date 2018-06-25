@@ -4,14 +4,14 @@ export default styled.div`
 	margin-top: 10px;
 
 	.todo-item {
-		border: 1px solid black;
+		border-bottom: 1px solid rgba(192, 192, 192, 0.3);
 		margin-bottom: 10px;
+		padding-bottom: 10px;
 		display: flex;
 
 		& > div {
 			padding: 0 2.5px;
 			box-sizing: border-box;
-			border: 1px solid black;
 		}
 
 		& > div:nth-child(2) {

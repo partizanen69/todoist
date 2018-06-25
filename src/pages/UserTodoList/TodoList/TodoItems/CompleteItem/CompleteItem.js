@@ -7,10 +7,18 @@ import Styles from './Styles';
 class CompleteItem extends React.Component {
 	constructor() {
 		super();
+		this.state = {
+			completed: '',
+		};
+	}
+
+	static getDerivedStateFromProps(props, state) {
+		return { completed: props.completed };
 	}
 
 	completeItem = fireBaseKey => {
 		const { uid } = this.props;
+		const { completed } = this.state;
 		firebase
 			.database()
 			.ref(
@@ -20,15 +28,17 @@ class CompleteItem extends React.Component {
 					fireBaseKey +
 					'/completed'
 			)
-			.set(true);
+			.set(completed ? false : true);
 	};
 
 	render() {
 		const { uid, fireBaseKey } = this.props;
+		const { completed } = this.state;
 		return (
 			<Styles
 				onClick={this.completeItem.bind(null, fireBaseKey)}>
-				<MdDone />complete
+				<MdDone />
+				{completed ? 'reset' : 'complete'}
 			</Styles>
 		);
 	}
