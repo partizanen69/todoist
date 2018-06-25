@@ -25,21 +25,17 @@ class Calendarr extends React.Component {
 	render() {
 		const { hideCalendar, pickDate, value } = this.props;
 		return (
-			<Styles>
-				<div
-					className="wrapper"
-					ref={node => (this.calendar = node)}>
-					<div className="cal-header">
-						<span>Choose todo item due date</span>
-						<span>
-							<FaClose onClick={hideCalendar} />
-						</span>
-					</div>
-					<Calendar
-						onChange={date => pickDate(date)}
-						value={value}
-					/>
+			<Styles innerRef={node => (this.calendar = node)}>
+				<div className="cal-header">
+					<span>Choose todo item due date</span>
+					<span>
+						<FaClose onClick={hideCalendar} />
+					</span>
 				</div>
+				<Calendar
+					onChange={date => pickDate(date)}
+					value={value}
+				/>
 			</Styles>
 		);
 	}

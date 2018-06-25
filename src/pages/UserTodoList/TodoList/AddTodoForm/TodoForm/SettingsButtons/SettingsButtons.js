@@ -16,6 +16,10 @@ class SettingsButtons extends React.Component {
 		this.state = {
 			showPriorityMenu: false,
 			showCommentForm: false,
+			projHover: false,
+			tagHover: false,
+			flagHover: false,
+			comHover: false,
 		};
 	}
 
@@ -47,7 +51,14 @@ class SettingsButtons extends React.Component {
 			setComment,
 			comment,
 		} = this.props;
-		const { showPriorityMenu, showCommentForm } = this.state;
+		const {
+			showPriorityMenu,
+			showCommentForm,
+			projHover,
+			tagHover,
+			flagHover,
+			comHover,
+		} = this.state;
 		const flagColor =
 			priority == 'moderate'
 				? 'moderate'
@@ -58,45 +69,80 @@ class SettingsButtons extends React.Component {
 						: '';
 		return (
 			<Styles>
-				<div className="settings-buttons">
-					<span data-desc={data[0]}>
-						<FaFileTextO onClick={addProj} />
-					</span>
-					<span data-desc={data[1]}>
-						<FaTags onClick={addTag} />
-					</span>
-					<span data-desc={data[2]} className={flagColor}>
-						<FaFlag onClick={this.showPriorityMenu} />
-						{showPriorityMenu && (
-							<PriorityMenu
-								hide={this.hidePriorityMenu}
-								setPriority={setPriority}
-							/>
-						)}
-					</span>
-					<span
-						data-desc={data[3]}
-						className={comment ? 'very-high' : ''}>
-						<FaComment onClick={this.showCommentForm} />
-						{showCommentForm && (
-							<CommentForm
-								hide={this.hideCommentForm}
-								comment={this.props.comment}
-								setComment={setComment}
-							/>
-						)}
-					</span>
-				</div>
+				<span
+					onMouseEnter={() =>
+						this.setState({ projHover: true })
+					}
+					onMouseLeave={() =>
+						this.setState({ projHover: true })
+					}>
+					<FaFileTextO onClick={addProj} />
+					{projHover && (
+						<span>
+							Set project by typing #<div />
+						</span>
+					)}
+				</span>
+				<span
+					onMouseEnter={() =>
+						this.setState({ tagHover: true })
+					}
+					onMouseLeave={() =>
+						this.setState({ tagHover: false })
+					}>
+					<FaTags onClick={addTag} />
+					{tagHover && (
+						<span>
+							Set tags by typing @<div />
+						</span>
+					)}
+				</span>
+				<span
+					className={flagColor}
+					onMouseEnter={() =>
+						this.setState({ flagHover: true })
+					}
+					onMouseLeave={() =>
+						this.setState({ flagHover: false })
+					}>
+					<FaFlag onClick={this.showPriorityMenu} />
+					{showPriorityMenu && (
+						<PriorityMenu
+							hide={this.hidePriorityMenu}
+							setPriority={setPriority}
+						/>
+					)}
+					{flagHover && (
+						<span>
+							Set priority<div />
+						</span>
+					)}
+				</span>
+				<span
+					className={comment ? 'very-high' : ''}
+					onMouseEnter={() =>
+						this.setState({ comHover: true })
+					}
+					onMouseLeave={() =>
+						this.setState({ comHover: false })
+					}>
+					<FaComment onClick={this.showCommentForm} />
+					{showCommentForm && (
+						<CommentForm
+							hide={this.hideCommentForm}
+							comment={this.props.comment}
+							setComment={setComment}
+						/>
+					)}
+					{comHover && (
+						<span>
+							Set comment<div />
+						</span>
+					)}
+				</span>
 			</Styles>
 		);
 	}
 }
-
-const data = [
-	'Project. Choose by typing #',
-	'Tag. Choose by typing @',
-	'Priority',
-	'Comment',
-];
 
 export default SettingsButtons;

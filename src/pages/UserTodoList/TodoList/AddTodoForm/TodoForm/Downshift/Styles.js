@@ -8,6 +8,7 @@ export default styled.div`
 	border-radius: 4px;
 	border: 1px solid #ccc;
 	top: 30px;
+	z-index: 2;
 
 	& .active {
 		background-color: grey;

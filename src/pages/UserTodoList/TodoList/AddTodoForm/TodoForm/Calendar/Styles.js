@@ -1,7 +1,6 @@
 import styled from 'styled-components';
 
 export default styled.div`
-	.wrapper {
 		position: absolute;
 		max-width: inherit;
 
@@ -45,5 +44,4 @@ export default styled.div`
 		.react-calendar:hover {
 			opacity: 1;
 		}
-	}
 `;
