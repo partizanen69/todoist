@@ -69,43 +69,48 @@ class SettingsButtons extends React.Component {
 						: '';
 		return (
 			<Styles>
-				<span
-					onMouseEnter={() =>
-						this.setState({ projHover: true })
-					}
-					onMouseLeave={() =>
-						this.setState({ projHover: true })
-					}>
-					<FaFileTextO onClick={addProj} />
+				<span>
+					<FaFileTextO
+						onClick={addProj}
+						onMouseEnter={() =>
+							this.setState({ projHover: true })
+						}
+						onMouseLeave={() =>
+							this.setState({ projHover: false })
+						}
+					/>
 					{projHover && (
 						<span>
 							Set project by typing #<div />
 						</span>
 					)}
 				</span>
-				<span
-					onMouseEnter={() =>
-						this.setState({ tagHover: true })
-					}
-					onMouseLeave={() =>
-						this.setState({ tagHover: false })
-					}>
-					<FaTags onClick={addTag} />
+				<span>
+					<FaTags
+						onClick={addTag}
+						onMouseEnter={() =>
+							this.setState({ tagHover: true })
+						}
+						onMouseLeave={() =>
+							this.setState({ tagHover: false })
+						}
+					/>
 					{tagHover && (
 						<span>
 							Set tags by typing @<div />
 						</span>
 					)}
 				</span>
-				<span
-					className={flagColor}
-					onMouseEnter={() =>
-						this.setState({ flagHover: true })
-					}
-					onMouseLeave={() =>
-						this.setState({ flagHover: false })
-					}>
-					<FaFlag onClick={this.showPriorityMenu} />
+				<span className={flagColor}>
+					<FaFlag
+						onClick={this.showPriorityMenu}
+						onMouseEnter={() =>
+							this.setState({ flagHover: true })
+						}
+						onMouseLeave={() =>
+							this.setState({ flagHover: false })
+						}
+					/>
 					{showPriorityMenu && (
 						<PriorityMenu
 							hide={this.hidePriorityMenu}
@@ -118,15 +123,16 @@ class SettingsButtons extends React.Component {
 						</span>
 					)}
 				</span>
-				<span
-					className={comment ? 'very-high' : ''}
-					onMouseEnter={() =>
-						this.setState({ comHover: true })
-					}
-					onMouseLeave={() =>
-						this.setState({ comHover: false })
-					}>
-					<FaComment onClick={this.showCommentForm} />
+				<span className={comment ? 'very-high' : ''}>
+					<FaComment
+						onClick={this.showCommentForm}
+						onMouseEnter={() =>
+							this.setState({ comHover: true })
+						}
+						onMouseLeave={() =>
+							this.setState({ comHover: false })
+						}
+					/>
 					{showCommentForm && (
 						<CommentForm
 							hide={this.hideCommentForm}

@@ -11,13 +11,24 @@ export default styled.div`
 			position: absolute;
 			font-size: 12px;
 			padding: 5px;
-			left: -60px;
-			top: 24px;
+			right: 0px;
+			top: -30px;
 			border-radius: 3px;
 			background-color: black;
 			color: white;
 			opacity: 1;
 			white-space: nowrap;
+
+			& > div {
+				width: 0;
+				height: 0;
+				border-left: 5px solid transparent;
+				border-right: 5px solid transparent;
+				border-top: 5px solid black;
+				position: absolute;
+				bottom: -5px;
+				right: 5px;
+			}
 		}
 
 		& .priority-menu {
@@ -51,48 +62,6 @@ export default styled.div`
 			& span:hover {
 				opacity: 1;
 			}
-
-			& span[data-desc]:hover::after {
-				content: attr(data-desc);
-				position: absolute;
-				font-size: 12px;
-				padding: 5px;
-				left: -60px;
-				top: 24px;
-				border-radius: 3px;
-				background-color: black;
-				color: white;
-				width: 100px;
-				opacity: 1;
-			}
-		}
-
-		& .comment-form {
-			position: absolute;
-			z-index: 1;
-			background-color: #fff;
-			box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.4);
-			border-radius: 3px;
-			padding: 5px;
-			cursor: auto;
-
-			& p {
-				float: left;
-			}
-
-			& span {
-				float: right;
-				cursor: pointer;
-			}
-
-			& textarea {
-				padding: 5px;
-				border-radius: 3px;
-			}
-		}
-
-		& .comment-form:hover {
-			opacity: 1;
 		}
 	}
 

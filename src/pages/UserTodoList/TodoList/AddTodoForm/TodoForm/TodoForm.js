@@ -9,25 +9,21 @@ import SettingsButtons from './SettingsButtons/SettingsButtons';
 import Calendarr from './Calendar/Calendar';
 import Styles from './Styles';
 
-const INITIAL_STATE = {
-	inputValue: '',
-	showDownshift: false,
-	project: '',
-	tags: [],
-	downshiftContent: '',
-	filterValue: '',
-	filteredArray: [],
-	priority: 'low',
-	comment: '',
-	showCalendar: false,
-	pickedDate: '',
-};
-
 class TodoForm extends React.Component {
 	constructor() {
 		super();
 		this.state = {
-			...INITIAL_STATE,
+			inputValue: '',
+			showDownshift: false,
+			project: '',
+			tags: [],
+			downshiftContent: '',
+			filterValue: '',
+			filteredArray: [],
+			priority: 'low',
+			comment: '',
+			showCalendar: false,
+			pickedDate: '',
 		};
 	}
 
@@ -57,7 +53,14 @@ class TodoForm extends React.Component {
 			.database()
 			.ref('users/' + uid + '/todoList')
 			.push(dataToSubmit);
-		this.setState({ ...INITIAL_STATE });
+		this.setState({
+			inputValue: '',
+			project: '',
+			tags: [],
+			priority: '',
+			comment: '',
+			pickedDate: '',
+		});
 	};
 
 	addProj = () => {

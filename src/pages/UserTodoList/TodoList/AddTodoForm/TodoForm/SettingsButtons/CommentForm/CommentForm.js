@@ -1,6 +1,8 @@
 import React from 'react';
 import { FaClose } from 'react-icons/lib/fa/';
 
+import Styles from './Styles';
+
 class CommentForm extends React.Component {
 	constructor() {
 		super();
@@ -31,9 +33,7 @@ class CommentForm extends React.Component {
 		const { textAreaValue } = this.state;
 		const { hide, comment, setComment } = this.props;
 		return (
-			<div
-				className="comment-form"
-				ref={node => (this.commentForm = node)}>
+			<Styles innerRef={node => (this.commentForm = node)}>
 				<p>Quick comment:</p>
 				<span>
 					<FaClose onClick={hide} />
@@ -42,7 +42,7 @@ class CommentForm extends React.Component {
 					onChange={e => setComment(e.target.value)}
 					value={comment}
 				/>
-			</div>
+			</Styles>
 		);
 	}
 }

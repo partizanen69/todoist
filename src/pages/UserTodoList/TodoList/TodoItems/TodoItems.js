@@ -3,6 +3,7 @@ import { Row, Col, Button } from 'react-bootstrap';
 
 import firebase from '../../../../firebase/firebase';
 import Styles from './Styles';
+import FilterButtons from './FilterButtons/FilterButtons';
 import CompleteButton from './CompleteButton/CompleteButton';
 import TodoItemText from './TodoItemText/TodoItemText';
 import TodoItemDate from './TodoItemDate/TodoItemDate';
@@ -17,6 +18,7 @@ class TodoItems extends React.Component {
 		super();
 		this.state = {
 			todoList: [],
+			filter: {},
 		};
 	}
 
@@ -26,62 +28,91 @@ class TodoItems extends React.Component {
 		return { todoList: a };
 	}
 
+	formFilterCondition = (property, value) => {
+		const { filter } = this.state;
+		filter[property] = value;
+		this.setState({ filter }, () =>
+			console.log(this.state.filter)
+		);
+	};
+
 	render() {
-		const { todoList } = this.state;
-		const { uid } = this.props;
+		const { todoList, filter } = this.state;
+		const { uid, userDatabase } = this.props;
 		return (
 			<Styles>
+				<FilterButtons
+					formFilterCondition={this.formFilterCondition}
+					userDatabase={userDatabase}
+				/>
 				{todoList &&
-					todoList.map(
-						([
-							key,
-							{
-								project,
-								tags,
-								toDoText,
-								priority,
-								comment,
-								date,
-								completed,
-							},
-						]) => {
-							return (
-								<div key={key} className="todo-item">
-									<CompleteButton
-										priority={priority}
-										completed={completed}
-									/>
-									<div>
-										<TodoItemText
-											text={toDoText}
+					todoList
+						.filter(item => {
+							for (var key in filter) {
+								if (
+									item[1][key] === undefined ||
+									item[1][key] != filter[key]
+								)
+									return false;
+							}
+							return true;
+						})
+						.map(
+							([
+								key,
+								{
+									project,
+									tags,
+									toDoText,
+									priority,
+									comment,
+									date,
+									completed,
+								},
+							]) => {
+								return (
+									<div
+										key={key}
+										className="todo-item">
+										<CompleteButton
+											priority={priority}
 											completed={completed}
 										/>
-										<TodoItemTags tags={tags} />
-										<TodoItemComment
-											comment={comment}
-											uid={uid}
-											fireBaseKey={key}
-										/>
-										<TodoItemProject
-											project={project}
-										/>
+										<div>
+											<TodoItemText
+												text={toDoText}
+												completed={completed}
+											/>
+											<TodoItemTags
+												tags={tags}
+											/>
+											<TodoItemComment
+												comment={comment}
+												uid={uid}
+												fireBaseKey={key}
+											/>
+											<TodoItemProject
+												project={project}
+											/>
+										</div>
+										<div>
+											<TodoItemDate
+												date={date}
+											/>
+											<DelTodoItem
+												fireBaseKey={key}
+												uid={uid}
+											/>
+											<CompleteItem
+												fireBaseKey={key}
+												uid={uid}
+												completed={completed}
+											/>
+										</div>
 									</div>
-									<div>
-										<TodoItemDate date={date} />
-										<DelTodoItem
-											fireBaseKey={key}
-											uid={uid}
-										/>
-										<CompleteItem
-											fireBaseKey={key}
-											uid={uid}
-											completed={completed}
-										/>
-									</div>
-								</div>
-							);
-						}
-					)}
+								);
+							}
+						)}
 			</Styles>
 		);
 	}
