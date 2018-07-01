@@ -16,7 +16,11 @@ class TodoItems extends React.Component {
 		super();
 		this.state = {
 			todoList: [],
-			filter: {},
+			filter: {
+				project: '',
+				completed: '',
+				tags: [],
+			},
 		};
 	}
 
@@ -38,6 +42,10 @@ class TodoItems extends React.Component {
 		this.setState({ filter: {} });
 	};
 
+	isObjEmpty = obj => {
+		return Object.values(obj).length === 0;
+	};
+
 	render() {
 		const { todoList, filter } = this.state;
 		const { uid, userDatabase } = this.props;
@@ -51,16 +59,33 @@ class TodoItems extends React.Component {
 				{todoList &&
 					todoList
 						.filter(item => {
-							for (var key in filter) {
-								if (filter[key] !== '') {
-									if (
-										item[1][key] === undefined ||
-										item[1][key] !== filter[key]
-									)
-										return false;
-								}
+							var ok = true;
+
+							if (filter['project'] !== '') {
+								ok =
+									filter['project'] ===
+									item[1]['project'];
 							}
-							return true;
+
+							if (ok && filter['completed'] !== '') {
+								ok =
+									filter['completed'] ===
+									item[1]['completed'];
+							}
+
+							if (
+								ok !== false &&
+								filter['tags'].length > 0
+							) {
+								ok = filter['tags'].every(
+									val =>
+										item[1]['tags'].indexOf(
+											val
+										) >= 0
+								);
+							}
+
+							return ok;
 						})
 						.map(
 							([

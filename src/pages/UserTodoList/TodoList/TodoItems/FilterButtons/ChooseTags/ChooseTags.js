@@ -27,14 +27,18 @@ class ChooseTags extends React.Component {
 		const { selectedTags } = this.state;
 		if (!selectedTags.includes(tag.value)) {
 			selectedTags.push(tag.value);
-			this.setState({ selectedTags });
+			this.setState({ selectedTags }, () =>
+				this.props.chooseTag(this.state.selectedTags)
+			);
 		}
 	};
 
 	delTag = key => {
 		const { selectedTags } = this.state;
 		selectedTags.splice(key, 1);
-		this.setState({ selectedTags });
+		this.setState({ selectedTags }, () =>
+			this.props.chooseTag(this.state.selectedTags)
+		);
 	};
 
 	render() {

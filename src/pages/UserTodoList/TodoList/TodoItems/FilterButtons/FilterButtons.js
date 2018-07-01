@@ -50,6 +50,10 @@ class FilterButtons extends React.Component {
 		formFilterCondition('completed', valueToPass);
 	};
 
+	chooseTag = (selectedTags, e) => {
+		this.props.formFilterCondition('tags', selectedTags);
+	};
+
 	render() {
 		const {
 			projects,
@@ -83,7 +87,7 @@ class FilterButtons extends React.Component {
 						In progress
 					</Radio>
 				</form>
-				<ChooseTags tags={tags} />
+				<ChooseTags chooseTag={this.chooseTag} tags={tags} />
 				<Button onClick={this.clearFilter}>
 					Clear filter
 				</Button>
