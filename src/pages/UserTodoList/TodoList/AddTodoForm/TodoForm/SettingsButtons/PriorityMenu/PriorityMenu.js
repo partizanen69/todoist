@@ -1,5 +1,5 @@
 import React from 'react';
-import { FaFlagO, FaFlag } from 'react-icons/lib/fa/';
+import { FaFlag } from 'react-icons/lib/fa/';
 
 import Styles from './Styles';
 
@@ -27,8 +27,8 @@ class PriorityMenu extends React.Component {
 	render() {
 		const { setPriority } = this.props;
 		return (
-			<div
-				ref={node => (this.priorityMenu = node)}
+			<Styles
+				innerRef={node => (this.priorityMenu = node)}
 				className="priority-menu">
 				<span data-desc={data[0]}>
 					<FaFlag onClick={setPriority.bind(null, 'low')} />
@@ -48,7 +48,7 @@ class PriorityMenu extends React.Component {
 						onClick={setPriority.bind(null, 'very high')}
 					/>
 				</span>
-			</div>
+			</Styles>
 		);
 	}
 }

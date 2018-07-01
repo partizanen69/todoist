@@ -1,7 +1,5 @@
 import React from 'react';
-import { Row, Col, Button } from 'react-bootstrap';
 
-import firebase from '../../../../firebase/firebase';
 import Styles from './Styles';
 import FilterButtons from './FilterButtons/FilterButtons';
 import CompleteButton from './CompleteButton/CompleteButton';
@@ -36,6 +34,10 @@ class TodoItems extends React.Component {
 		);
 	};
 
+	clearFilter = () => {
+		this.setState({ filter: {} });
+	};
+
 	render() {
 		const { todoList, filter } = this.state;
 		const { uid, userDatabase } = this.props;
@@ -44,16 +46,19 @@ class TodoItems extends React.Component {
 				<FilterButtons
 					formFilterCondition={this.formFilterCondition}
 					userDatabase={userDatabase}
+					clearFilter={this.clearFilter}
 				/>
 				{todoList &&
 					todoList
 						.filter(item => {
 							for (var key in filter) {
-								if (
-									item[1][key] === undefined ||
-									item[1][key] != filter[key]
-								)
-									return false;
+								if (filter[key] !== '') {
+									if (
+										item[1][key] === undefined ||
+										item[1][key] !== filter[key]
+									)
+										return false;
+								}
 							}
 							return true;
 						})

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button } from 'react-bootstrap';
+import { FormControl, Button, Radio } from 'react-bootstrap';
 
 import Styles from './Styles';
 
@@ -9,6 +9,8 @@ class FilterButtons extends React.Component {
 		this.state = {
 			projects: [],
 			tags: [],
+			chooseProject: '',
+			chooseCompleted: 'all',
 		};
 	}
 
@@ -20,21 +22,79 @@ class FilterButtons extends React.Component {
 		};
 	}
 
-	render() {
-		const { projects, tags } = this.state;
+	chooseProject = e => {
 		const { formFilterCondition } = this.props;
+		formFilterCondition('project', e.target.value);
+		this.setState({ chooseProject: e.target.value });
+	};
+
+	clearFilter = () => {
+		const { clearFilter } = this.props;
+		this.setState({ chooseProject: '', chooseCompleted: 'all' });
+		clearFilter();
+	};
+
+	chooseCompleted = e => {
+		const { formFilterCondition } = this.props;
+		const value = e.target.value;
+		const valueToPass =
+			value === 'completed'
+				? true
+				: value === 'in progress'
+					? false
+					: '';
+		this.setState({
+			chooseCompleted: value,
+		});
+		formFilterCondition('completed', valueToPass);
+	};
+
+	render() {
+		const {
+			projects,
+			tags,
+			chooseProject,
+			chooseCompleted,
+		} = this.state;
 		return (
 			<Styles>
-				<select
-					onChange={e =>
-						formFilterCondition('project', e.target.value)
-					}>
+				<FormControl
+					componentClass="select"
+					onChange={this.chooseProject}
+					value={chooseProject}>
 					<option />
 					{projects &&
 						projects.map((item, key) => {
-							return <option>{item}</option>;
+							return <option key={key}>{item}</option>;
 						})}
-				</select>
+				</FormControl>
+				<form onChange={this.chooseCompleted}>
+					<Radio
+						name="completed"
+						value="all"
+						defaultChecked
+						// checked={chooseCompleted === 'all'}
+					>
+						All
+					</Radio>
+					<Radio
+						name="completed"
+						value="completed"
+						// checked={chooseCompleted === 'completed'}
+					>
+						Completed
+					</Radio>{' '}
+					<Radio
+						name="completed"
+						value="in progress"
+						// checked={chooseCompleted === 'in progress'}
+					>
+						In progress
+					</Radio>
+				</form>
+				<Button onClick={this.clearFilter}>
+					Clear filter
+				</Button>
 			</Styles>
 		);
 	}

@@ -25,12 +25,10 @@ class CommentForm extends React.Component {
 	}
 
 	handleClick = e => {
-		const { textAreaValue } = this.state;
 		!this.commentForm.contains(e.target) && this.props.hide();
 	};
 
 	render() {
-		const { textAreaValue } = this.state;
 		const { hide, comment, setComment } = this.props;
 		return (
 			<Styles innerRef={node => (this.commentForm = node)}>
