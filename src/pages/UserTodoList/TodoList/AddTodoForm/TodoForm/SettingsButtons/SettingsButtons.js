@@ -36,7 +36,6 @@ class SettingsButtons extends React.Component {
 	};
 
 	hideCommentForm = e => {
-		const { setComment, comment } = this.props;
 		this.setState({
 			showCommentForm: false,
 		});
@@ -60,11 +59,11 @@ class SettingsButtons extends React.Component {
 			comHover,
 		} = this.state;
 		const flagColor =
-			priority == 'moderate'
+			priority === 'moderate'
 				? 'moderate'
-				: priority == 'high'
+				: priority === 'high'
 					? 'high'
-					: priority == 'very high'
+					: priority === 'very high'
 						? 'very-high'
 						: '';
 		return (

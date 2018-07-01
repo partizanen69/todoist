@@ -32,7 +32,7 @@ class CompleteItem extends React.Component {
 	};
 
 	render() {
-		const { uid, fireBaseKey } = this.props;
+		const { fireBaseKey } = this.props;
 		const { completed } = this.state;
 		return (
 			<Styles

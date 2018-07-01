@@ -1,6 +1,6 @@
 import React from 'react';
 import { FaClose, FaCalendar } from 'react-icons/lib/fa/';
-import { FormControl, Button, Row, Col } from 'react-bootstrap';
+import { FormControl, Button } from 'react-bootstrap';
 
 import firebase from '../../../../../firebase/firebase';
 import 'react-tagsinput/react-tagsinput.css';
