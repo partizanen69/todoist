@@ -2,6 +2,7 @@ import React from 'react';
 import { FormControl, Button, Radio } from 'react-bootstrap';
 
 import Styles from './Styles';
+import ChooseTags from './ChooseTags/ChooseTags';
 
 class FilterButtons extends React.Component {
 	constructor() {
@@ -72,26 +73,17 @@ class FilterButtons extends React.Component {
 					<Radio
 						name="completed"
 						value="all"
-						defaultChecked
-						// checked={chooseCompleted === 'all'}
-					>
+						defaultChecked>
 						All
 					</Radio>
-					<Radio
-						name="completed"
-						value="completed"
-						// checked={chooseCompleted === 'completed'}
-					>
+					<Radio name="completed" value="completed">
 						Completed
-					</Radio>{' '}
-					<Radio
-						name="completed"
-						value="in progress"
-						// checked={chooseCompleted === 'in progress'}
-					>
+					</Radio>
+					<Radio name="completed" value="in progress">
 						In progress
 					</Radio>
 				</form>
+				<ChooseTags tags={tags} />
 				<Button onClick={this.clearFilter}>
 					Clear filter
 				</Button>
