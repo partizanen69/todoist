@@ -39,7 +39,13 @@ class TodoItems extends React.Component {
 	};
 
 	clearFilter = () => {
-		this.setState({ filter: {} });
+		this.setState({
+			filter: {
+				project: '',
+				completed: '',
+				tags: [],
+			},
+		});
 	};
 
 	isObjEmpty = obj => {

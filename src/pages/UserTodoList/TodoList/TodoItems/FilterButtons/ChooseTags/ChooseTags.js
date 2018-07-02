@@ -78,6 +78,7 @@ class ChooseTags extends React.Component {
 							<FormControl
 								type="text"
 								{...getInputProps()}
+								placeholder="Filter by tags"
 							/>
 							{isOpen ? (
 								<div>

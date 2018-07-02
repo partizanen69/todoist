@@ -3,6 +3,7 @@ import { FormControl, Button, Radio } from 'react-bootstrap';
 
 import Styles from './Styles';
 import ChooseTags from './ChooseTags/ChooseTags';
+import FilterByDate from './FilterByDate/FilterByDate';
 
 class FilterButtons extends React.Component {
 	constructor() {
@@ -67,7 +68,7 @@ class FilterButtons extends React.Component {
 					componentClass="select"
 					onChange={this.chooseProject}
 					value={chooseProject}>
-					<option />
+					<option value="">Filter by project</option>
 					{projects &&
 						projects.map((item, key) => {
 							return <option key={key}>{item}</option>;
@@ -88,6 +89,7 @@ class FilterButtons extends React.Component {
 					</Radio>
 				</form>
 				<ChooseTags chooseTag={this.chooseTag} tags={tags} />
+				<FilterByDate />
 				<Button onClick={this.clearFilter}>
 					Clear filter
 				</Button>
