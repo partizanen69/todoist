@@ -20,7 +20,9 @@ class TodoItems extends React.Component {
 				project: '',
 				completed: '',
 				tags: [],
+				dateRange: [],
 			},
+			isRangeShow: false,
 		};
 	}
 
@@ -44,7 +46,9 @@ class TodoItems extends React.Component {
 				project: '',
 				completed: '',
 				tags: [],
+				dateRange: [],
 			},
+			isRangeShow: false,
 		});
 	};
 
@@ -52,8 +56,12 @@ class TodoItems extends React.Component {
 		return Object.values(obj).length === 0;
 	};
 
+	showRange = () => {
+		this.setState({ isRangeShow: true });
+	};
+
 	render() {
-		const { todoList, filter } = this.state;
+		const { todoList, filter, isRangeShow } = this.state;
 		const { uid, userDatabase } = this.props;
 		return (
 			<Styles>
@@ -61,6 +69,9 @@ class TodoItems extends React.Component {
 					formFilterCondition={this.formFilterCondition}
 					userDatabase={userDatabase}
 					clearFilter={this.clearFilter}
+					filter={filter}
+					showRange={this.showRange}
+					isRangeShow={isRangeShow}
 				/>
 				{todoList &&
 					todoList
@@ -89,6 +100,17 @@ class TodoItems extends React.Component {
 											val
 										) >= 0
 								);
+							}
+
+							if (
+								ok !== false &&
+								filter['dateRange'].length > 0
+							) {
+								ok =
+									item[1]['date'] >=
+										filter['dateRange'][0] &&
+									item[1]['date'] <=
+										filter['dateRange'][1];
 							}
 
 							return ok;

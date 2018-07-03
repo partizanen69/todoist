@@ -62,6 +62,12 @@ class FilterButtons extends React.Component {
 			chooseProject,
 			chooseCompleted,
 		} = this.state;
+		const {
+			formFilterCondition,
+			filter,
+			showRange,
+			isRangeShow,
+		} = this.props;
 		return (
 			<Styles>
 				<FormControl
@@ -89,7 +95,12 @@ class FilterButtons extends React.Component {
 					</Radio>
 				</form>
 				<ChooseTags chooseTag={this.chooseTag} tags={tags} />
-				<FilterByDate />
+				<FilterByDate
+					formFilterCondition={formFilterCondition}
+					filter={filter}
+					showRange={showRange}
+					isRangeShow={isRangeShow}
+				/>
 				<Button onClick={this.clearFilter}>
 					Clear filter
 				</Button>

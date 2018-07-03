@@ -29,6 +29,27 @@ export default styled.div`
 
 		& .cal-header {
 			padding: 5px;
+
+			& > button {
+				font-size: 10px;
+				padding: 3px 6px;
+				margin-right: 5px;
+			}
+
+			& > div {
+				margin: 5px 0 5px 0;
+			}
+
+			& > div > span {
+				color: #1e88e5;
+				border-bottom: 1px dashed rgba(30, 136, 229, 0.4);
+				margin: 3px;
+				cursor: pointer;
+			}
+
+			& > div > span:hover {
+				color: #ff9647;
+			}
 		}
 
 		& .react-calendar {
