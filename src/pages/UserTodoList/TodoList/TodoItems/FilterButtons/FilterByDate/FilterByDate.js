@@ -45,7 +45,7 @@ class FilterByDate extends React.Component {
 	};
 
 	applyDateRange = () => {
-		const { formFilterCondition, filter, showRange } = this.props;
+		const { formFilterCondition, showRange } = this.props;
 		const { calDate } = this.state;
 		const dateRange = calDate.map(item => item.getTime());
 		formFilterCondition('dateRange', dateRange);

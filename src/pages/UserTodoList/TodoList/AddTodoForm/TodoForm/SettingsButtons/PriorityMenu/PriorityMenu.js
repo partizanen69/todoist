@@ -4,10 +4,6 @@ import { FaFlag } from 'react-icons/lib/fa/';
 import Styles from './Styles';
 
 class PriorityMenu extends React.Component {
-	constructor() {
-		super();
-	}
-
 	componentWillMount() {
 		document.addEventListener('click', this.handleClick, false);
 	}

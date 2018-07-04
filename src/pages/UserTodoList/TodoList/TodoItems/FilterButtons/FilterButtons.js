@@ -56,12 +56,7 @@ class FilterButtons extends React.Component {
 	};
 
 	render() {
-		const {
-			projects,
-			tags,
-			chooseProject,
-			chooseCompleted,
-		} = this.state;
+		const { projects, tags, chooseProject } = this.state;
 		const {
 			formFilterCondition,
 			filter,
