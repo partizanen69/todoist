@@ -21,6 +21,7 @@ class TodoItems extends React.Component {
 				completed: '',
 				tags: [],
 				dateRange: [],
+				itemText: '',
 			},
 			isRangeShow: false,
 		};
@@ -111,6 +112,16 @@ class TodoItems extends React.Component {
 										filter['dateRange'][0] &&
 									item[1]['date'] <=
 										filter['dateRange'][1];
+							}
+
+							if (ok && filter['itemText'] !== '') {
+								ok = item[1]['toDoText']
+									.toLowerCase()
+									.includes(
+										filter[
+											'itemText'
+										].toLowerCase()
+									);
 							}
 
 							return ok;

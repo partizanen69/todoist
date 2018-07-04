@@ -4,6 +4,7 @@ import { FormControl, Button, Radio } from 'react-bootstrap';
 import Styles from './Styles';
 import ChooseTags from './ChooseTags/ChooseTags';
 import FilterByDate from './FilterByDate/FilterByDate';
+import FilterByItemText from './FilterByItemText/FilterByItemText';
 
 class FilterButtons extends React.Component {
 	constructor() {
@@ -65,6 +66,9 @@ class FilterButtons extends React.Component {
 		} = this.props;
 		return (
 			<Styles>
+				<FilterByItemText
+					formFilterCondition={formFilterCondition}
+				/>
 				<FormControl
 					componentClass="select"
 					onChange={this.chooseProject}
