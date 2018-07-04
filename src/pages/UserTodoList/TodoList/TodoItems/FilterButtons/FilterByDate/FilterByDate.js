@@ -57,8 +57,33 @@ class FilterByDate extends React.Component {
 		var day = '0' + date.getDate();
 		var month = '0' + (date.getMonth() + 1);
 		var year = date.getFullYear();
-
 		return day.substr(-2) + '.' + month.substr(-2) + '.' + year;
+	};
+
+	setToday = () => {
+		this.setState({ calDate: [new Date(), new Date()] });
+	};
+
+	setYesterday = () => {
+		const timeStamp = new Date().getTime() - 86400000;
+		const yest = new Date(timeStamp);
+		this.setState({ calDate: [yest, yest] });
+	};
+
+	setCurMonth = () => {
+		const month = new Date().getMonth();
+		const year = new Date().getFullYear();
+		const firstNextMonth = new Date(year, month + 1, 1);
+		const firstCurMonth = new Date(year, month, 1);
+		const last = new Date(firstNextMonth - 1);
+		this.setState({ calDate: [firstCurMonth, last] });
+	};
+
+	setCurYear = () => {
+		const year = new Date().getFullYear();
+		const firstCurYear = new Date(year, 0, 1);
+		const lastCurYear = new Date(year, 11, 31);
+		this.setState({ calDate: [firstCurYear, lastCurYear] });
 	};
 
 	render() {
@@ -81,10 +106,18 @@ class FilterByDate extends React.Component {
 						ref={node => this.calendarMount(node)}>
 						<div className="cal-header">
 							<div>
-								<span>Today</span>
-								<span>Yesterday</span>
-								<span>Current month</span>
-								<span>This year</span>
+								<span onClick={this.setToday}>
+									Today
+								</span>
+								<span onClick={this.setYesterday}>
+									Yesterday
+								</span>
+								<span onClick={this.setCurMonth}>
+									Current month
+								</span>
+								<span onClick={this.setCurYear}>
+									This year
+								</span>
 							</div>
 							<Button onClick={this.applyDateRange}>
 								Apply
