@@ -112,10 +112,15 @@ class TodoForm extends React.Component {
 	};
 
 	onChangeHandler = e => {
-		this.setState({ inputValue: e.target.value }, () => {
-			const { inputValue } = this.state;
-			this.isShowDownshift(inputValue);
-		});
+		const { projects, tags } = this.props.userDatabase;
+		const isProject = !projects && e.target.value.includes('#');
+		const isTag = !tags && e.target.value.includes('@');
+		if (!isProject && !isTag) {
+			this.setState({ inputValue: e.target.value }, () => {
+				const { inputValue } = this.state;
+				this.isShowDownshift(inputValue);
+			});
+		}
 	};
 
 	isShowDownshift = val => {
@@ -315,6 +320,7 @@ class TodoForm extends React.Component {
 							priority={priority}
 							setComment={this.setComment}
 							comment={comment}
+							userDatabase={userDatabase}
 						/>
 					</div>
 				</form>

@@ -49,6 +49,7 @@ class SettingsButtons extends React.Component {
 			priority,
 			setComment,
 			comment,
+			userDatabase,
 		} = this.props;
 		const {
 			showPriorityMenu,
@@ -70,7 +71,11 @@ class SettingsButtons extends React.Component {
 			<Styles>
 				<span>
 					<FaFileTextO
-						onClick={addProj}
+						onClick={
+							userDatabase.projects
+								? addProj
+								: () => true
+						}
 						onMouseEnter={() =>
 							this.setState({ projHover: true })
 						}
@@ -80,13 +85,18 @@ class SettingsButtons extends React.Component {
 					/>
 					{projHover && (
 						<span>
-							Set project by typing #<div />
+							{userDatabase.projects
+								? 'Set project by typing #'
+								: 'Create a project first'}
+							<div />
 						</span>
 					)}
 				</span>
 				<span>
 					<FaTags
-						onClick={addTag}
+						onClick={
+							userDatabase.tags ? addTag : () => true
+						}
 						onMouseEnter={() =>
 							this.setState({ tagHover: true })
 						}
@@ -96,7 +106,10 @@ class SettingsButtons extends React.Component {
 					/>
 					{tagHover && (
 						<span>
-							Set tags by typing @<div />
+							{userDatabase.tags
+								? 'Set tags by typing @'
+								: 'Create a tag first'}
+							<div />
 						</span>
 					)}
 				</span>

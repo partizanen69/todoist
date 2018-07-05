@@ -12,8 +12,10 @@ export default styled.div`
 			box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.4);
 			border-radius: 3px;
 			background-color: green;
-			margin: 0 5px 5px 0;
+			margin: 2px 5px 5px 0;
 			padding: 5px 10px;
+			position: absolute;
+			white-space: nowrap;
 
 			& > i {
 				cursor: pointer;
@@ -22,7 +24,6 @@ export default styled.div`
 
 		& input {
 			width: auto;
-			margin-top: 10px;
 		}
 
 		& > div {

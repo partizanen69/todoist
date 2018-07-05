@@ -69,16 +69,30 @@ class FilterButtons extends React.Component {
 				<FilterByItemText
 					formFilterCondition={formFilterCondition}
 				/>
-				<FormControl
-					componentClass="select"
-					onChange={this.chooseProject}
-					value={chooseProject}>
-					<option value="">Filter by project</option>
-					{projects &&
-						projects.map((item, key) => {
-							return <option key={key}>{item}</option>;
-						})}
-				</FormControl>
+				<div>
+					<FormControl
+						componentClass="select"
+						onChange={this.chooseProject}
+						value={chooseProject}>
+						<option value="">Filter by project</option>
+						{projects &&
+							projects.map((item, key) => {
+								return (
+									<option key={key}>{item}</option>
+								);
+							})}
+					</FormControl>
+					<FilterByDate
+						formFilterCondition={formFilterCondition}
+						filter={filter}
+						showRange={showRange}
+						isRangeShow={isRangeShow}
+					/>
+					<ChooseTags
+						chooseTag={this.chooseTag}
+						tags={tags}
+					/>
+				</div>
 				<form onChange={this.chooseCompleted}>
 					<Radio
 						name="completed"
@@ -93,13 +107,7 @@ class FilterButtons extends React.Component {
 						In progress
 					</Radio>
 				</form>
-				<ChooseTags chooseTag={this.chooseTag} tags={tags} />
-				<FilterByDate
-					formFilterCondition={formFilterCondition}
-					filter={filter}
-					showRange={showRange}
-					isRangeShow={isRangeShow}
-				/>
+
 				<Button onClick={this.clearFilter}>
 					Clear filter
 				</Button>

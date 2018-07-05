@@ -48,6 +48,7 @@ class TodoItems extends React.Component {
 				completed: '',
 				tags: [],
 				dateRange: [],
+				itemText: '',
 			},
 			isRangeShow: false,
 		});

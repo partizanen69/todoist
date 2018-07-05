@@ -45,23 +45,6 @@ class ChooseTags extends React.Component {
 		const { tags, selectedTags } = this.state;
 		return (
 			<Styles>
-				<div>
-					{selectedTags &&
-						selectedTags.map((item, key) => {
-							return (
-								<span key={key}>
-									{item}
-									<i>
-										<FaClose
-											onClick={() =>
-												this.delTag(key)
-											}
-										/>
-									</i>
-								</span>
-							);
-						})}
-				</div>
 				<Downshift
 					onChange={selection => this.addTag(selection)}
 					itemToString={item => (item ? item.value : '')}>
@@ -114,6 +97,23 @@ class ChooseTags extends React.Component {
 						</div>
 					)}
 				</Downshift>
+				<div>
+					{selectedTags &&
+						selectedTags.map((item, key) => {
+							return (
+								<span key={key}>
+									{item}
+									<i>
+										<FaClose
+											onClick={() =>
+												this.delTag(key)
+											}
+										/>
+									</i>
+								</span>
+							);
+						})}
+				</div>
 			</Styles>
 		);
 	}

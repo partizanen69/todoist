@@ -26,7 +26,7 @@ class FilterByItemText extends React.Component {
 			<Styles>
 				<FormControl
 					type="text"
-					placeholder="Search by item text"
+					placeholder="Filter by item text"
 					value={inputValue}
 					onChange={this.changeHandler}
 				/>

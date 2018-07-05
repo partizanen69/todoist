@@ -4,6 +4,7 @@ import { FormGroup, FormControl, Button } from 'react-bootstrap';
 
 import * as routes from '../../constants/routes';
 import { auth, db } from '../../firebase';
+import firebase from '../../firebase/firebase';
 import { PasswordForgetLink } from '../PasswordForget/PasswordForget';
 import Styles from './Styles';
 
@@ -38,18 +39,26 @@ class SignUpForm extends React.Component {
 	}
 
 	onSubmit = e => {
-		const { username, email, passwordOne } = this.state;
+		const { username, email, passwordOne, projects } = this.state;
 
 		const { history } = this.props;
 
 		auth.doCreateUserWithEmailAndPassword(email, passwordOne)
 			.then(authUser => {
-				db.doCreateUser(authUser.uid, username, email).then(
-					() => {
+				db.doCreateUser(authUser.uid, username, email)
+					.then(() => {
 						this.setState(() => ({ ...INITIAL_STATE }));
 						history.push(routes.USER_TODO_LIST);
-					}
-				);
+						console.log('authUser', authUser);
+					})
+					.then(() =>
+						firebase
+							.database()
+							.ref(
+								'users/' + authUser.uid + '/projects'
+							)
+							.push('Your first project')
+					);
 			})
 			.catch(error => {
 				this.setState({ error: error });

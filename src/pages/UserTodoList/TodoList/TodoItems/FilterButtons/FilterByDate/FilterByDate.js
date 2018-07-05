@@ -98,7 +98,7 @@ class FilterByDate extends React.Component {
 						? `${this.formHumanDate(
 								calDate[0]
 						  )} - ${this.formHumanDate(calDate[1])}`
-						: 'Choose date range'}
+						: 'Filter by date range'}
 				</div>
 				{isOpen && (
 					<div
