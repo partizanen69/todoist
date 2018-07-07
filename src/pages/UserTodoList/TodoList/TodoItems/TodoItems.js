@@ -10,6 +10,7 @@ import TodoItemComment from './TodoItemComment/TodoItemComment';
 import TodoItemProject from './TodoItemProject/TodoItemProject';
 import DelTodoItem from './DelTodoItem/DelTodoItem';
 import CompleteItem from './CompleteItem/CompleteItem';
+import ShowHideFilter from './ShowHideFilter/ShowHideFilter';
 
 class TodoItems extends React.Component {
 	constructor() {
@@ -24,6 +25,7 @@ class TodoItems extends React.Component {
 				itemText: '',
 			},
 			isRangeShow: false,
+			isFilterShow: false,
 		};
 	}
 
@@ -62,19 +64,34 @@ class TodoItems extends React.Component {
 		this.setState({ isRangeShow: true });
 	};
 
+	toggleFilter = () => {
+		this.setState({ isFilterShow: !this.state.isFilterShow });
+	};
+
 	render() {
-		const { todoList, filter, isRangeShow } = this.state;
+		const {
+			todoList,
+			filter,
+			isRangeShow,
+			isFilterShow,
+		} = this.state;
 		const { uid, userDatabase } = this.props;
 		return (
 			<Styles>
-				<FilterButtons
-					formFilterCondition={this.formFilterCondition}
-					userDatabase={userDatabase}
-					clearFilter={this.clearFilter}
-					filter={filter}
-					showRange={this.showRange}
-					isRangeShow={isRangeShow}
+				<ShowHideFilter
+					isFilterShow={isFilterShow}
+					toggleFilter={this.toggleFilter}
 				/>
+				{isFilterShow && (
+					<FilterButtons
+						formFilterCondition={this.formFilterCondition}
+						userDatabase={userDatabase}
+						clearFilter={this.clearFilter}
+						filter={filter}
+						showRange={this.showRange}
+						isRangeShow={isRangeShow}
+					/>
+				)}
 				{todoList &&
 					todoList
 						.filter(item => {

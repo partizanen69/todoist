@@ -7,7 +7,7 @@ class AddTodoForm extends React.Component {
 	constructor() {
 		super();
 		this.state = {
-			addItemOpen: true,
+			addItemOpen: false,
 		};
 	}
 
