@@ -10,7 +10,7 @@ import Styles from './Styles';
 
 const Navigation = ({ authUser }) => (
   <Styles>
-    <Navbar collapseOnSelect>
+    <Navbar collapseOnSelect fixedTop>
       <Navbar.Header>
         <LinkContainer to={routes.HOME}>
           <Navbar.Brand>Todo List</Navbar.Brand>
@@ -25,6 +25,7 @@ const Navigation = ({ authUser }) => (
         </AuthUserContext.Consumer>
       </Navbar.Collapse>
     </Navbar>
+    <div className="navigation-height" />
   </Styles>
 );
 

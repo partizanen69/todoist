@@ -1,11 +1,12 @@
 import React from 'react';
-import { Row, Col } from 'react-bootstrap';
 
 import withAuthorization from '../../withAuthorization';
 import firebase from '../../firebase/firebase';
 import Projects from './Projects/Projects';
 import Tags from './Tags/Tags';
 import TodoList from './TodoList/TodoList';
+import Styles from './Styles';
+import OpenSideBarArrow from './OpenSideBarArrow/OpenSideBarArrow';
 
 class UserTodoList extends React.Component {
 	constructor() {
@@ -13,6 +14,8 @@ class UserTodoList extends React.Component {
 		this.state = {
 			uid: '',
 			userDatabase: {},
+			isSideBarOpen: false,
+			isScrollShow: false,
 		};
 	}
 
@@ -29,19 +32,47 @@ class UserTodoList extends React.Component {
 		});
 	}
 
+	openSideBar = () => {
+		const { isSideBarOpen } = this.state;
+		this.setState({ isSideBarOpen: !isSideBarOpen });
+	};
+
 	render() {
-		const { uid, userDatabase } = this.state;
+		const {
+			uid,
+			userDatabase,
+			isSideBarOpen,
+			isScrollShow,
+		} = this.state;
 
 		return (
-			<Row>
-				<Col sm={4} md={3}>
-					<Projects uid={uid} userDatabase={userDatabase} />
-					<Tags uid={uid} userDatabase={userDatabase} />
-				</Col>
-				<Col sm={8} md={9}>
+			<Styles
+				isScrollShow={isScrollShow}
+				isSideBarOpen={isSideBarOpen}>
+				<div
+					className="left-wrapper"
+					onMouseEnter={() =>
+						this.setState({ isScrollShow: true })
+					}
+					onMouseLeave={() =>
+						this.setState({ isScrollShow: false })
+					}>
+					<div className="left">
+						<Projects
+							uid={uid}
+							userDatabase={userDatabase}
+						/>
+						<Tags uid={uid} userDatabase={userDatabase} />
+					</div>
+					<OpenSideBarArrow
+						openSideBar={this.openSideBar}
+						isSideBarOpen={isSideBarOpen}
+					/>
+				</div>
+				<div className="right">
 					<TodoList uid={uid} userDatabase={userDatabase} />
-				</Col>
-			</Row>
+				</div>
+			</Styles>
 		);
 	}
 }

@@ -98,13 +98,13 @@ export default styled.div`
 
 			& .edit-tag-menu {
 				position: absolute;
-				width: 200px;
 				background-color: #fff;
+				white-space: nowrap;
 				z-index: 1;
 				box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.4);
 				border-radius: 3px;
 				top: 20px;
-				left: 15px;
+				right: 0;
 				padding: 7px 0px;
 				font-size: 14px;
 
