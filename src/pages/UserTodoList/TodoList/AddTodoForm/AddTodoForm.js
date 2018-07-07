@@ -11,7 +11,8 @@ class AddTodoForm extends React.Component {
 		};
 	}
 
-	showForm = () => this.setState({ addItemOpen: true });
+	toggleForm = () =>
+		this.setState({ addItemOpen: !this.state.addItemOpen });
 	hideForm = () => this.setState({ addItemOpen: false });
 
 	render() {
@@ -20,14 +21,16 @@ class AddTodoForm extends React.Component {
 
 		return (
 			<div>
-				{addItemOpen ? (
+				<AddTodoButton
+					addItemOpen={addItemOpen}
+					toggleForm={this.toggleForm}
+				/>
+				{addItemOpen && (
 					<TodoForm
 						uid={uid}
 						hideForm={this.hideForm}
 						userDatabase={userDatabase}
 					/>
-				) : (
-					<AddTodoButton showForm={this.showForm} />
 				)}
 			</div>
 		);
