@@ -59,9 +59,7 @@ class SignInForm extends React.Component {
 
 	render() {
 		const { email, password, error } = this.state;
-
 		const isInvalid = email === '' || password === '';
-
 		return (
 			<form onSubmit={this.onSubmit}>
 				<FormGroup>

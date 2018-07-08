@@ -6,6 +6,7 @@ import * as routes from '../../constants/routes';
 import { auth, db } from '../../firebase';
 import { PasswordForgetLink } from '../PasswordForget/PasswordForget';
 import Styles from './Styles';
+import PassValidationPopUp from './PassValidationPopUp/PassValidationPopUp';
 
 const SignUpPage = ({ history }) => (
 	<Styles>
@@ -35,6 +36,7 @@ const INITIAL_STATE = {
 	passwordOne: '',
 	passwordTwo: '',
 	error: null,
+	isPopUpShow: false,
 };
 
 class SignUpForm extends React.Component {
@@ -70,13 +72,18 @@ class SignUpForm extends React.Component {
 			passwordOne,
 			passwordTwo,
 			error,
+			isPopUpShow,
 		} = this.state;
 
-		const isInvalid =
-			passwordOne !== passwordTwo ||
-			passwordOne === '' ||
-			email === '' ||
-			username === '';
+		const passLength = passwordOne.length >= 8;
+		const patternSpecChar = /[!@#$%^&*(),.'?":;\\{}/|[\]<>`]/g;
+		const specChar = patternSpecChar.test(passwordOne);
+		const patternUpper = /[A-Z]+/g;
+		const upperLetter = patternUpper.test(passwordOne);
+		const passMatch =
+			passwordOne === passwordTwo && passwordTwo !== '';
+		const finalValidation =
+			passLength && specChar && upperLetter && passMatch;
 
 		return (
 			<form onSubmit={this.onSubmit}>
@@ -111,7 +118,21 @@ class SignUpForm extends React.Component {
 						}
 						type="password"
 						placeholder="Password"
+						onFocus={() =>
+							this.setState({ isPopUpShow: true })
+						}
+						onBlur={() =>
+							this.setState({ isPopUpShow: false })
+						}
 					/>
+					{isPopUpShow && (
+						<PassValidationPopUp
+							passLength={passLength}
+							specChar={specChar}
+							upperLetter={upperLetter}
+							passMatch={passMatch}
+						/>
+					)}
 				</FormGroup>
 				<FormGroup>
 					<FormControl
@@ -123,15 +144,21 @@ class SignUpForm extends React.Component {
 						}
 						type="password"
 						placeholder="Confirm Password"
+						onFocus={() =>
+							this.setState({ isPopUpShow: true })
+						}
+						onBlur={() =>
+							this.setState({ isPopUpShow: false })
+						}
 					/>
 				</FormGroup>
 				<FormGroup>
-					<Button type="submit" disabled={isInvalid}>
+					<Button type="submit" disabled={!finalValidation}>
 						Sign Up
 					</Button>
 				</FormGroup>
 
-				{error && <p>{error.message}</p>}
+				{error && <p className="error">{error.message}</p>}
 			</form>
 		);
 	}
