@@ -39,6 +39,7 @@ export default styled.div`
 
 	.todo-input {
 		position: relative;
+		z-index: 1;
 
 		& > span {
 			position: absolute;

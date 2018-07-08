@@ -8,8 +8,7 @@ class TodoItemProject extends React.Component {
 		const { project } = this.props;
 		return (
 			<Styles>
-				<FaFileTextO />
-				{project}
+				{project && <FaFileTextO />} {project && project}
 			</Styles>
 		);
 	}

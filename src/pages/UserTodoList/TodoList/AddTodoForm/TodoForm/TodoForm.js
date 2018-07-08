@@ -40,8 +40,8 @@ class TodoForm extends React.Component {
 		const { uid } = this.props;
 		const dataToSubmit = {
 			toDoText: inputValue,
-			project: project ? project : 'Tasks',
-			tags: tags ? tags : ['Unalocated'],
+			project: project,
+			tags: tags,
 			priority,
 			comment,
 			date: pickedDate

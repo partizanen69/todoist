@@ -18,6 +18,7 @@ export default styled.div`
 			color: white;
 			opacity: 1;
 			white-space: nowrap;
+			z-index: 2;
 
 			& > div {
 				width: 0;

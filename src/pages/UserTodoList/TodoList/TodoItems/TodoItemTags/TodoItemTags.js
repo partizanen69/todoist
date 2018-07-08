@@ -8,14 +8,15 @@ class TodoItemTags extends React.Component {
 		const { tags } = this.props;
 		return (
 			<Styles>
-				{tags.map((tag, key) => {
-					return (
-						<span key={key}>
-							<FaTags />
-							{tag}
-						</span>
-					);
-				})}
+				{tags &&
+					tags.map((tag, key) => {
+						return (
+							<span key={key}>
+								<FaTags />
+								{tag}
+							</span>
+						);
+					})}
 			</Styles>
 		);
 	}

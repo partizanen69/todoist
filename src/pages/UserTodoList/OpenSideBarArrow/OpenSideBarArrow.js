@@ -3,10 +3,6 @@ import React from 'react';
 import Styles from './Styles';
 
 class OpenSideBarArrow extends React.Component {
-	constructor() {
-		super();
-	}
-
 	render() {
 		const { isSideBarOpen } = this.props;
 		return (

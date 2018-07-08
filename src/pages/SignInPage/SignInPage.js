@@ -11,8 +11,14 @@ const SignInPage = ({ history }) => (
 	<Styles>
 		<div className="wrapper">
 			<span>
-				To test the application you can use the following
-				user: login - alexey_ablitsov@mail.ru pass - 111111
+				To test the application you can:
+				<ul>
+					<li>register a new user</li>
+					<li>
+						use existing user: login -
+						alexey_ablitsov@mail.ru pass - 111111
+					</li>
+				</ul>
 			</span>
 			<div>
 				<h1>Sign in</h1>

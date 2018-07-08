@@ -4,7 +4,6 @@ import { FormGroup, FormControl, Button } from 'react-bootstrap';
 
 import * as routes from '../../constants/routes';
 import { auth, db } from '../../firebase';
-import firebase from '../../firebase/firebase';
 import { PasswordForgetLink } from '../PasswordForget/PasswordForget';
 import Styles from './Styles';
 
@@ -12,8 +11,14 @@ const SignUpPage = ({ history }) => (
 	<Styles>
 		<div className="wrapper">
 			<span>
-				To test the application you can use the following
-				user: login - alexey_ablitsov@mail.ru pass - 111111
+				To test the application you can:
+				<ul>
+					<li>register a new user</li>
+					<li>
+						use existing user: login -
+						alexey_ablitsov@mail.ru pass - 111111
+					</li>
+				</ul>
 			</span>
 			<div>
 				<h1>Sign Up</h1>
@@ -39,26 +44,18 @@ class SignUpForm extends React.Component {
 	}
 
 	onSubmit = e => {
-		const { username, email, passwordOne, projects } = this.state;
+		const { username, email, passwordOne } = this.state;
 
 		const { history } = this.props;
 
 		auth.doCreateUserWithEmailAndPassword(email, passwordOne)
 			.then(authUser => {
-				db.doCreateUser(authUser.uid, username, email)
-					.then(() => {
+				db.doCreateUser(authUser.uid, username, email).then(
+					() => {
 						this.setState(() => ({ ...INITIAL_STATE }));
 						history.push(routes.USER_TODO_LIST);
-						console.log('authUser', authUser);
-					})
-					.then(() =>
-						firebase
-							.database()
-							.ref(
-								'users/' + authUser.uid + '/projects'
-							)
-							.push('Your first project')
-					);
+					}
+				);
 			})
 			.catch(error => {
 				this.setState({ error: error });
