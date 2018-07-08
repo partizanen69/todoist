@@ -1,6 +1,7 @@
 import React from 'react';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 import { Grid } from 'react-bootstrap';
+import { Helmet } from 'react-helmet';
 
 import * as routes from './constants/routes';
 import Navigation from './components/Navigation/Navigation';
@@ -15,6 +16,14 @@ import withAuthentication from './withAuthentication';
 const App = () => (
     <Router>
         <div>
+            <Helmet>
+                <meta charSet="utf-8" />
+                <meta
+                    name="viewport"
+                    content="width=device-width, initial-scale=1"
+                />
+                <title>Todoist ninja</title>
+            </Helmet>
             <Navigation />
             <Grid>
                 <Route
