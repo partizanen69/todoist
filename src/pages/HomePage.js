@@ -32,7 +32,7 @@ class HomePage extends React.Component {
 					</ul>
 				</ol>
 				<p>
-					Sorce code of the application can be reviewed at{' '}
+					Source code of the application can be reviewed at{' '}
 					<a href="https://github.com/partizanen69/todoist">
 						GitHub
 					</a>
